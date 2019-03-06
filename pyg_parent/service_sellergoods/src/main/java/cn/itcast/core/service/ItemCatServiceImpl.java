@@ -52,4 +52,28 @@ public class ItemCatServiceImpl implements ItemCatService {
     public List<ItemCat> findAll() {
         return itemCatDao.selectByExample(null);
     }
+
+    @Override
+    public List<ItemCat> findItemCatList() {
+        List<ItemCat> itemCatList = (List<ItemCat>) redisTemplate.boundHashOps(Constants.REDIS_CATEGORY).get(Constants.INDEX_ITEMCAT_LIST);
+        if (itemCatList == null) {
+            List<ItemCat> itemCatList1 = findByParentId(0L);
+            if (itemCatList1 != null){
+                for (ItemCat itemCat1 : itemCatList1) {
+                    List<ItemCat> itemCatList2 = findByParentId(itemCat1.getId());
+                    if (itemCatList2 != null){
+                        for (ItemCat itemCat2 : itemCatList2) {
+                            List<ItemCat> itemCatList3 = findByParentId(itemCat2.getId());
+                            itemCat2.setItemCatList(itemCatList3);
+                        }
+                    }
+                    itemCat1.setItemCatList(itemCatList2);
+                }
+            }
+            redisTemplate.boundHashOps(Constants.REDIS_CATEGORY).put(Constants.INDEX_ITEMCAT_LIST,itemCatList1);
+            return itemCatList1;
+        }
+
+        return itemCatList;
+    }
 }

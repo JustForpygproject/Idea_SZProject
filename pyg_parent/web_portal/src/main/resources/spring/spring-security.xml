@@ -22,6 +22,8 @@
 		<!-- 匿名角色 IS_AUTHENTICATED_ANONYMOUSLY, 没有权限也可以访问的请求 -->
 		<intercept-url pattern="/cart/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url> 
 		<intercept-url pattern="/itemsearch/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
+		<intercept-url pattern="/content/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
+		<intercept-url pattern="/itemcat/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
         <!-- 拦截所有路径除了放行的都拦截,  只有拥有了ROLE_USER权限才会继续放行 -->
         <intercept-url pattern="/**" access="ROLE_USER"/>   
         <csrf disabled="true"/>  
