@@ -23,7 +23,7 @@
    
 </head>
 
-<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1)">
+<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1);findItemCatList()">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 <div id="nav-bottom">
@@ -140,7 +140,23 @@
 			<div class="yui3-g SortList ">
 				<div class="yui3-u Left all-sort-list">
 					<div class="all-sort-list2">
-						<div class="item bo">
+						<div class="item {{flag?'hover':''}}" ng-repeat="itemCat1 in itemCatList" ng-mouseenter="flag=true"
+							 ng-mouseleave="flag=false">
+							<h3><a href="search.html?keywords={{itemCat1.name}}">{{itemCat1.name}}</a></h3>
+							<div class="item-list clearfix" style="display: {{flag?'block':'none'}};">
+								<div class="subitem">
+									<dl class="fore1" ng-repeat="itemCat2 in itemCat1.itemCatList">
+										<dt><a href="search.html?keywords={{itemCat2.name}}">{{itemCat2.name}}</a></dt>
+										<dd>
+											<em ng-repeat="itemCat3 in itemCat2.itemCatList">
+												<a href="search.html?keywords={{itemCat3.name}}">{{itemCat3.name}}</a>
+											</em>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<!--<div class="item bo">
 							<h3><a href="">图书、音像、数字商品</a></h3>
 							<div class="item-list clearfix">
 								<div class="subitem">
@@ -523,7 +539,7 @@
 						</div>
 						<div class="item">
 							<h3><a href="">箱包</a></h3>
-						</div>
+						</div>-->
 					</div>
 				</div>
 				
