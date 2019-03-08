@@ -17,7 +17,7 @@ app.service("brandService",function($http){
 	}
 	
 	this.findById=function(id){
-		return $http.get("../brand/findOne.do?id="+id);
+		return $http.get("../brand/findById.do?id="+id);
 	}
 	
 	this.dele = function(ids){
@@ -25,14 +25,10 @@ app.service("brandService",function($http){
 	}
 	
 	this.search = function(page,rows,searchEntity){
-		return $http.post("../brandShenHe/search.do?page="+page+"&rows="+rows,searchEntity);
+		return $http.post("../brand/search.do?page="+page+"&rows="+rows,searchEntity);
 	}
 	
 	this.selectOptionList = function(){
 		return $http.get("../brand/selectOptionList.do");
 	}
-
-    this.updateStatus = function(ids,status){
-        return $http.get('../brandShenHe/updateStatus.do?ids='+ids+"&status="+status);
-    }
 });

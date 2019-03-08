@@ -38,8 +38,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除</button>           
+										<button type="button" ng-click="updateStatus('1')" class="btn btn-default" title="审核通过" ><i class="fa fa-check"></i> 审核通过</button>
+										<button type="button" ng-click="updateStatus('2')" class="btn btn-default" title="驳回" ><i class="fa fa-ban"></i> 驳回</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
 										  <th class="sorting_asc">品牌ID</th>
 									      <th class="sorting">品牌名称</th>									      
 									      <th class="sorting">品牌首字母</th>
-					                      <th class="text-center">操作</th>
+									      <th class="sorting">品牌审核状态</th>
 			                          </tr>
 			                      </thead>
 			                      <tbody>
@@ -70,9 +70,7 @@
 				                          <td>{{entity.id}}</td>
 									      <td>{{entity.name}}</td>									     
 		                                  <td>{{entity.firstChar}}</td>
-		                                  <td class="text-center">
-		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
-		                                  </td>
+		                                  <td>{{entity.status=="0"?"未审核":(entity.status=="1"?"已审核":"驳回")}}</td>
 			                          </tr>
 									  
 			                      </tbody>
