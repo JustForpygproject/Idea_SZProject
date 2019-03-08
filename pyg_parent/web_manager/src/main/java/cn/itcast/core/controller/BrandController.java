@@ -124,4 +124,33 @@ public class BrandController {
     public List<Map> selectOptionList() {
         return brandService.selectOptionList();
     }
+
+
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            //1. 根据商品id改变数据库中商品的上架状态
+            brandService.updateStatus(ids, status);
+//            //判断审核通过的
+//            if ("1".equals(status)) {
+//                if (ids != null) {
+//                    for (Long goodsId : ids) {
+//                        //2. 根据商品id, 查询对应的库存集合数据放入solr索引库
+//                        solrManagerService.importItemToSolr(goodsId);
+//
+//                        //3. 根据商品id, 获取商品详情, 商品, 库存集合等数据然后根据模板生成静态化页面
+//                        Map<String, Object> goods = cmsService.findGoods(goodsId);
+//                        //生成
+//                        cmsService.createStaticPage(goodsId, goods);
+//                    }
+//                }
+//            }
+            return new Result(true, "修改成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "修改失败!");
+        }
+    }
+
+
 }
