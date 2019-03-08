@@ -1,7 +1,9 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.common.PhoneFormatCheckUtils;
+import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.entity.Result;
+import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.UserService;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -67,5 +69,9 @@ public class UserController {
             e.printStackTrace();
             return new Result(false, "注册失败!");
         }
+    }
+    @RequestMapping("/findPage")
+    public PageResult findPage(Integer page, Integer rows,@RequestBody Order order){
+            return null;
     }
 }
