@@ -9,6 +9,35 @@ app.controller('cartController',function($scope,cartService){
 			}
 		);
 	}
+
+	//查询收藏列表
+	$scope.findCollectList=function(){
+		cartService.findCollectList().success(
+			function(response){
+				$scope.collectList=response;
+				$scope.totalValue= cartService.sum($scope.collectList);
+			}
+		);
+	}
+	//购物车的商品添加到收藏
+	$scope.addItemToCollectList=function(itemId){
+		cartService.addItemToCollectList(itemId).success(
+			function(response){
+				if(response.success){//如果成功
+					$scope.findCollectList();//刷新列表
+					alert("添加成功");
+				}else{
+					alert(response.message);
+					alert("添加失败");
+				}
+			}
+		);
+
+	}
+
+
+
+
 	
 	//数量加减
 	$scope.addGoodsToCartList=function(itemId,num){

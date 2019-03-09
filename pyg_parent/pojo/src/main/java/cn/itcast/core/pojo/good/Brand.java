@@ -9,6 +9,18 @@ public class Brand implements Serializable {
      * 品牌名称
      */
     private String name;
+    /**
+     * 状态
+     */
+    private String auditStatus;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
 
     /**
      * 品牌首字母

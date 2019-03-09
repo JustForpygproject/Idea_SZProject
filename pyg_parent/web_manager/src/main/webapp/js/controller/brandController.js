@@ -79,5 +79,17 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 			$scope.list = response.rows;
 		});
 	}
+
+	// 审核的方法:
+	$scope.updateStatus = function(status){
+		brandService.updateStatus($scope.selectIds,status).success(function(response){
+			if(response.success){
+				$scope.reloadList();//刷新列表
+				$scope.selectIds = [];
+			}else{
+				alert(response.message);
+			}
+		});
+	}
 	
 });

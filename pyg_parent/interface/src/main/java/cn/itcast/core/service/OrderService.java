@@ -1,5 +1,6 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.order.Order;
 
 public interface OrderService {
@@ -17,4 +18,7 @@ public interface OrderService {
      * @param out_trade_no 支付单号
      */
     public void  updatePayLogAndOrderStatus(String out_trade_no);
+
+    public PageResult findPage(Order order , Integer page, Integer rows);
+
 }

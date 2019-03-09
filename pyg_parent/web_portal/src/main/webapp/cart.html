@@ -95,7 +95,7 @@
 								<li class="yui3-u-1-8"><span class="sum">{{item.totalFee}}</span></li>
 								<li class="yui3-u-1-8">
 									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
+									<a href="#none"  ng-click="addItemToCollectList(item.itemId)">收藏</a>
 								</li>
 							</ul>
 						</div>
@@ -113,7 +113,7 @@
 				</div>
 				<div class="option">
 					<a href="#none">删除选中的商品</a>
-					<a href="#none">移到我的关注</a>
+					<a href="#none"  ng-click="addItemToCollectList(item.itemId)">收藏</a>
 					<a href="#none">清除下柜商品</a>
 				</div>
 				<div class="toolbar">
