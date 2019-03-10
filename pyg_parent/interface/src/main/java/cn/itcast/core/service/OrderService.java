@@ -2,6 +2,10 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.pojo.order.Order;
 
+
+
+import java.util.List;
+
 public interface OrderService {
 
     /**
@@ -12,9 +16,6 @@ public interface OrderService {
      */
     public void add(Order order);
 
-    /**
-     * 根据支付单号修改, 支付状态为已支付
-     * @param out_trade_no 支付单号
-     */
-    public void  updatePayLogAndOrderStatus(String out_trade_no);
+
+    List<Order> fallAll(String username);
 }
