@@ -14,6 +14,13 @@
 	<dubbo:application name="pinyougou-sellergoods-service"/>  
 	<!--配置包扫描, 只有在这个包下面写@Service才会生效可以可以将service发布成dubbo的服务-->
     <dubbo:annotation package="cn.itcast.core.service" />
+
+	<bean id="idWorker" class="cn.itcast.core.common.IdWorker">
+		<!-- 服务器编号, 不可以重复 -->
+		<constructor-arg index="0" value="1"></constructor-arg>
+		<!-- 生成随机数的种子 -->
+		<constructor-arg index="1" value="0"></constructor-arg>
+	</bean>
    
    
 </beans>

@@ -21,4 +21,18 @@ public interface BrandService {
     public void delete(Long[] ids);
 
     public List<Map> selectOptionList();
+
+    PageResult search(Integer page,Integer rows,Brand brand, String sellerId);
+
+    void sellerAdd(String sellerId,Brand brand);
+
+    boolean checkBrand(Brand brand);
+
+    Brand findById(String sellerId, Long id);
+
+    void updateSellerBrand(String sellerId, Brand brand);
+
+    PageResult ManagerSearch(Integer page, Integer rows, Brand brand, String sellerId);
+
+    void updateStatus(Long[] ids, String status);
 }

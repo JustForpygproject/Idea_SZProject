@@ -2,6 +2,7 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.common.Constants;
 import cn.itcast.core.common.IdWorker;
+import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.log.PayLogDao;
 import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.dao.order.OrderItemDao;
@@ -16,13 +17,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements  OrderService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PayLogDao payLogDao;
@@ -39,21 +40,24 @@ public class OrderServiceImpl implements  OrderService {
     @Autowired
     private IdWorker idWorker;
 
+    @Autowired
+    private ItemDao itemDao;
+
 
     @Override
     public void add(Order pageOrder) {
         //1. 根据订单对象转入的用户名, 获取redis中购物车集合对象
-        List<BuyerCart> cartList = (List<BuyerCart>)redisTemplate.boundHashOps(Constants.REDIS_CART_LIST).get(pageOrder.getUserId());
+        List<BuyerCart> cartList = (List<BuyerCart>) redisTemplate.boundHashOps(Constants.REDIS_CART_LIST).get(pageOrder.getUserId());
 
-        List<String> orderIdList=new ArrayList();//订单ID列表
-        double total_money=0;//总金额 （元）
+        List<String> orderIdList = new ArrayList();//订单ID列表
+        double total_money = 0;//总金额 （元）
 
         //2. 遍历购物车集合对象
         if (cartList != null) {
             for (BuyerCart cart : cartList) {
                 long orderId = idWorker.nextId();
-                System.out.println("sellerId:"+cart.getSellerId());
-                Order tborder=new Order();//新创建订单对象
+                System.out.println("sellerId:" + cart.getSellerId());
+                Order tborder = new Order();//新创建订单对象
                 tborder.setOrderId(orderId);//订单ID
                 tborder.setUserId(pageOrder.getUserId());//用户名
                 tborder.setPaymentType(pageOrder.getPaymentType());//支付类型
@@ -66,7 +70,7 @@ public class OrderServiceImpl implements  OrderService {
                 tborder.setSourceType(pageOrder.getSourceType());//订单来源
                 tborder.setSellerId(cart.getSellerId());//商家ID
                 //循环购物车明细
-                double money=0;
+                double money = 0;
 
 
                 //4. 从购物车对象中获取购物项集合对象
@@ -75,9 +79,9 @@ public class OrderServiceImpl implements  OrderService {
                     //5. 遍历购物项集合对象
                     for (OrderItem orderItem : orderItemList) {
                         orderItem.setId(idWorker.nextId());
-                        orderItem.setOrderId( orderId  );//订单ID
+                        orderItem.setOrderId(orderId);//订单ID
                         orderItem.setSellerId(cart.getSellerId());
-                        money+=orderItem.getTotalFee().doubleValue();//金额累加
+                        money += orderItem.getTotalFee().doubleValue();//金额累加
 
                         //6. 根据购物项对象保存订单详情数据
                         orderItemDao.insertSelective(orderItem);
@@ -87,23 +91,23 @@ public class OrderServiceImpl implements  OrderService {
                 //保存订单独享
                 tborder.setPayment(new BigDecimal(money));
                 orderDao.insertSelective(tborder);
-                orderIdList.add(orderId+"");//添加到订单列表
-                total_money+=money;//累加到总金额
+                orderIdList.add(orderId + "");//添加到订单列表
+                total_money += money;//累加到总金额
 
             }
         }
 
         //8.最后根据需要支付的总金额保存支付日志数据
-        if("1".equals(pageOrder.getPaymentType())){//如果是微信支付
-            PayLog payLog=new PayLog();
-            String outTradeNo=  idWorker.nextId()+"";//支付订单号
+        if ("1".equals(pageOrder.getPaymentType())) {//如果是微信支付
+            PayLog payLog = new PayLog();
+            String outTradeNo = idWorker.nextId() + "";//支付订单号
             payLog.setOutTradeNo(outTradeNo);//支付订单号
             payLog.setCreateTime(new Date());//创建时间
             //订单号列表，逗号分隔
-            String ids=orderIdList.toString().replace("[", "").replace("]", "").replace(" ", "");
+            String ids = orderIdList.toString().replace("[", "").replace("]", "").replace(" ", "");
             payLog.setOrderList(ids);//订单号列表，逗号分隔
             payLog.setPayType("1");//支付类型
-            payLog.setTotalFee( (long)(total_money*100 ) );//总金额(分)
+            payLog.setTotalFee((long) (total_money * 100));//总金额(分)
             payLog.setTradeState("0");//支付状态
             payLog.setUserId(pageOrder.getUserId());//用户ID
             payLogDao.insertSelective(payLog);//插入到支付日志表
@@ -122,5 +126,46 @@ public class OrderServiceImpl implements  OrderService {
         criteria.andSellerIdEqualTo(username);
         List<Order> orderList = orderDao.selectByExample(query);
         return orderList;
+    }
+
+    @Override
+    public List<Order> findOrderList(String sellerId, Date startDate, Date endDate) {
+        OrderQuery orderQuery = new OrderQuery();
+        OrderQuery.Criteria orderQueryCriteria = orderQuery.createCriteria();
+        orderQueryCriteria.andSellerIdEqualTo(sellerId);
+        orderQueryCriteria.andCreateTimeBetween(startDate,endDate);
+        return orderDao.selectByExample(orderQuery);
+    }
+
+    @Override
+    public List<Double> findSalesVolume(List<String> days, List<Order> orderList) {
+        if (days != null && days.size() > 0){
+            Double[] salesVolume = new Double[days.size()];
+            for (String day : days) {
+                if (orderList != null){
+                    for (Order order : orderList) {
+                        Date createTime = order.getCreateTime();
+                        if (day.equals(dateMethod(createTime))){
+                            int index = days.indexOf(day);
+                            if (salesVolume[index] == null){
+                                salesVolume[index] = 0.0;
+                            }
+                            salesVolume[index] += order.getPayment().doubleValue();
+                        }
+                    }
+                }
+            }
+            return Arrays.asList(salesVolume);
+        }
+        return null;
+    }
+
+
+    /**
+     * 日期忽略时分秒
+     */
+    private String dateMethod(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
     }
 }

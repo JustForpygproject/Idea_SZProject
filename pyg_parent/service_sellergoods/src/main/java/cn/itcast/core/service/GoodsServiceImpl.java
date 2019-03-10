@@ -23,6 +23,7 @@ import com.github.pagehelper.PageHelper;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.cci.core.support.CciDaoSupport;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.transaction.annotation.Transactional;
@@ -202,6 +203,14 @@ public class GoodsServiceImpl implements GoodsService {
                 });
             }
         }
+    }
+
+    @Override
+    public List<Item> searchItemsBySellerId(String sellerId) {
+        ItemQuery query = new ItemQuery();
+        ItemQuery.Criteria criteria = query.createCriteria();
+        criteria.andSellerIdEqualTo(sellerId);
+        return itemDao.selectByExample(query);
     }
 
     /**

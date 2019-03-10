@@ -1,6 +1,10 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.order.Order;
+
+import java.util.Date;
+import java.util.List;
 
 
 
@@ -18,4 +22,13 @@ public interface OrderService {
 
 
     List<Order> fallAll(String username);
+    /**
+     * 根据支付单号修改, 支付状态为已支付
+     * @param out_trade_no 支付单号
+     */
+    public void  updatePayLogAndOrderStatus(String out_trade_no);
+
+    List<Order> findOrderList(String sellerId, Date startDate, Date endDate);
+
+    List<Double> findSalesVolume(List<String> days, List<Order> orderList);
 }
