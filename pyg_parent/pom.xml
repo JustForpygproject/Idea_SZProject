@@ -270,6 +270,7 @@
         <module>web_shop</module>
         <module>web_portal</module>
         <module>web_user</module>
+        <module>../ExcelImportToMysql</module>
     </modules>
 
 

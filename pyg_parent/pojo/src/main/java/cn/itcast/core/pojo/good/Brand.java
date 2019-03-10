@@ -3,7 +3,7 @@ package cn.itcast.core.pojo.good;
 import java.io.Serializable;
 
 public class Brand implements Serializable {
-    private Long id;
+    private String id;
 
     /**
      * 品牌名称
@@ -17,11 +17,11 @@ public class Brand implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

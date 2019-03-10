@@ -8,7 +8,7 @@ app.service("uploadService",function($http){
 		
 		return $http({
 			method:'post',
-			url:'../upload/uploadFile.do',
+			url:'../upload/importExcel.do',
 			data:formData,
 			headers:{'Content-Type':undefined} ,// Content-Type : text/html  text/plain
 			transformRequest: angular.identity

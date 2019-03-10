@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta content="multipart/form-data; charset=utf-8"/>
+    <title>数据导出</title>
+    <script type="text/javascript" src="../js/controller/brandController.js"></script>
+    <script type="text/javascript" src="../js/service/uploadService.js"></script>
+    <script type="text/javascript" src="../js/plugins/jquery/jquery.min.js"></script>
+</head>
+<body ng-app="pinyougou" ng-controller="brandController">
+
+<h1><a style="color: #00a7d0" href="http://localhost:8081/exportWordData.do">订单数据导出</a></h1><br>
+<h1><a style="color: #00e765" href="http://localhost:8081/exportWordData1.do">用户数据导出</a></h1><br>
+<h1><a style="color: red" href="http://localhost:8081/exportWordData2.do">商品数据导出</a></h1><br>
+<h1><a style="color: #00c0ef" href="http://localhost:8081/exportWordData3.do">品牌数据导出</a></h1><br>
+<h1><a style="color: #00c0ef" href="http://localhost:8081/upload/importExcel.do">品牌数据导入</a></h1><br>
+<!--<form action="/importExcel.do" method="post" enctype="multipart/form-data">
+    <tr>
+        <td>excel</td>
+        <td>
+            <input type="file" id="file" name="file" multiple/>
+            <button class="btn btn-primary" type="button" ng-click="uploadFile()">
+                上传
+            </button>
+        </td>
+    </tr>
+</form>-->
+<div class="form-group" id="thumbnailUploadContainer" class="col-sm-10" style="float: left; margin-right: 50px;">
+    <input id="articleImageFile" name="excelFile" type="file" class="form-control" style="width: 300px; display: inline;" />
+    <input id="saveZipButton" type="button" style="width: 60px;height: 35px;" value="上传" />
+</div>
+<script>
+    $("#saveZipButton").on('click', function(){
+        var formData = new FormData();
+        var name = $("#articleImageFile").val();
+        formData.append("file",$("#articleImageFile")[0].files[0]);
+        formData.append("name",name);//这个地方可以传递多个参数
+        $.ajax({
+            url :  "http://localhost:8081/upload/importExcel.do",
+            type : 'POST',
+            async : false,
+            data : formData,
+            // 告诉jQuery不要去处理发送的数据
+            processData : false,
+            // 告诉jQuery不要去设置Content-Type请求头
+            contentType : false,
+            beforeSend:function(){
+                console.log("正在进行，请稍候");
+            },
+            success : function(responseStr) {
+                if(responseStr=="01"){
+                    alert("导入成功");
+                }else{
+                    alert("导入失败");
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

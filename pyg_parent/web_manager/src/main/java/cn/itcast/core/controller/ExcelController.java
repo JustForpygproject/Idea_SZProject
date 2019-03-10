@@ -1,6 +1,7 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.common.ExcelUtil;
+import cn.itcast.core.pojo.good.Brand;
 import cn.itcast.core.pojo.good.Goods;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.service.ExcelService;
@@ -111,7 +112,8 @@ public class ExcelController {
             e.printStackTrace();
         }
 
-    } @RequestMapping("exportWordData2")
+    }
+    @RequestMapping("exportWordData2")
     public void exportExcelData2(HttpServletRequest request, HttpServletResponse response) {
 
         // 定义表的标题
@@ -146,6 +148,42 @@ public class ExcelController {
 
         try {
             String fileName = new String("商品数据导出.xlsx".getBytes("UTF-8"), "iso-8859-1");    //生成word文件的文件名
+            excelUtil.exportExcel(title, rowsName, dataList, fileName, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    @RequestMapping("exportWordData3")
+    public void exportExcelData3(HttpServletRequest request, HttpServletResponse response) {
+
+        // 定义表的标题
+        String title = "品牌导出数据";
+        //查询所有商品
+        List<Brand> brandList = excelService.findBrandList();
+        //定义表的列名
+        String[] rowsName = new String[] { "id", "name", "first_char"};
+        //定义表的内容
+        List<Object[]> dataList = new ArrayList<Object[]>();
+        if (brandList!=null){
+            for (Brand brand : brandList) {
+                String id = brand.getId();
+                String name = brand.getName();
+                String firstChar = brand.getFirstChar();
+                Object[] objs = new Object[3];
+                objs[0] = id;
+                objs[1] = name;
+                objs[2] = firstChar;
+
+                dataList.add(objs);
+            }
+        }
+        // 创建ExportExcel对象
+        ExcelUtil excelUtil = new ExcelUtil();
+
+        try {
+            String fileName = new String("品牌数据导出.xlsx".getBytes("UTF-8"), "iso-8859-1");    //生成word文件的文件名
             excelUtil.exportExcel(title, rowsName, dataList, fileName, response);
 
         } catch (Exception e) {

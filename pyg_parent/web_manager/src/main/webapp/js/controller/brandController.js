@@ -79,5 +79,15 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 			$scope.list = response.rows;
 		});
 	}
-	
+    $scope.uploadFile = function(){
+        // 调用uploadService的方法完成文件的上传
+        uploadService.uploadFile().success(function(response){
+            if(response.success){
+                // 获得url
+                alert(response.message);
+            }else{
+                alert(response.message);
+            }
+        });
+    }
 });

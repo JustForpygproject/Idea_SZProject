@@ -30,7 +30,7 @@ app.controller('goodsController' ,function($scope,$controller,itemCatService   ,
 			}
 		);				
 	}
-	
+
 	//保存 
 	$scope.save=function(){				
 		var serviceObject;//服务层对象  				

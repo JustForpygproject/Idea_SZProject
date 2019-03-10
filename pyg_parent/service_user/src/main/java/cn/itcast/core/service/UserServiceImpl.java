@@ -1,9 +1,15 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.dao.user.UserDao;
+import cn.itcast.core.pojo.entity.PageResult;
+import cn.itcast.core.pojo.order.Order;
+import cn.itcast.core.pojo.order.OrderQuery;
 import cn.itcast.core.pojo.user.User;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.activemq.command.ActiveMQMapMessage;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private OrderDao orderDao;
 
     @Override
     public void sendCode(final String phone) {
@@ -90,6 +99,8 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
         userDao.insertSelective(user);
     }
+
+
 
     public static void main(String[] args) {
         long s = (long)(Math.random() * 1000000);
