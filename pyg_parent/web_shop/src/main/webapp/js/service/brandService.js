@@ -31,4 +31,10 @@ app.service("brandService",function($http){
 	this.selectOptionList = function(){
 		return $http.get("../brand/selectOptionList.do");
 	}
+
+    this.searchItemList = function(){
+        return $http.get("../seckill/searchItemForSeckill.do");
+    }
+
+
 });

@@ -42,6 +42,17 @@ public class SeckillGoods implements Serializable {
      */
     private String sellerId;
 
+    /*商家名*/
+    private String seller;
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
+
     /**
      * 添加日期
      */

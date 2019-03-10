@@ -11,6 +11,8 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 		});
 	}
 
+
+
 	// 分页查询
 	$scope.findByPage = function(page,rows){
 		// 向后台发送请求获取数据:

@@ -80,6 +80,8 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 		});
 	}
 
+
+
     $scope.updateStatus = function(status){
         brandService.updateStatus($scope.selectIds,status).success(function(response){
             if(response.success){

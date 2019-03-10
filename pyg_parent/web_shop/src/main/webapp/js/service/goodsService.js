@@ -28,5 +28,14 @@ app.service('goodsService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../goods/search.do?page='+page+"&rows="+rows, searchEntity);
-	}    	
+	}
+
+    this.searchItemList = function(){
+        return $http.get("../seckill/searchItemForSeckill.do");
+    }
+
+    //提交
+    this.commit=function(entity){
+        return $http.post('../seckill/addSeckillGoods.do',entity );
+    }
 });

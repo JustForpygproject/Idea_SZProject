@@ -104,10 +104,12 @@
             $(function () {
 
                 $("#getdata").click(function () {
+                    /*获取起止时间*/
                     var startDate = $("#startDate").val();
                     var endDate = $("#endDate").val();
                     startDate = startDate.split("-").join("/");
                     endDate = endDate.split("-").join("/");
+                    /*请求后台*/
                     $.ajax({
                         type: "GET",
                         url: "http://localhost:8082/sales_volume/findSalesVolume.do",

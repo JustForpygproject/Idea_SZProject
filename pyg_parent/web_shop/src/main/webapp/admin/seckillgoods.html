@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- 页面meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>商品编辑</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+	<link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- 富文本编辑器 -->
+	<link rel="stylesheet" href="../plugins/kindeditor/themes/default/default.css" />
+	<script charset="utf-8" src="../plugins/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
+
+	<!-- 引入angular -->
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+
+	<script type="text/javascript" src="../js/base.js"></script>
+
+	<script type="text/javascript" src="../js/service/goodsService.js"></script>
+	<script type="text/javascript" src="../js/service/itemCatService.js"></script>
+	<script type="text/javascript" src="../js/service/uploadService.js"></script>
+	<script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
+
+	<script type="text/javascript" src="../js/controller/baseController.js"></script>
+	<script type="text/javascript" src="../js/controller/goodsController.js"></script>
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="searchItemList()">
+  <!-- .box-body -->
+                    <div class="box-header with-border">
+                        <h3 class="box-title">秒杀商品申请</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <!--工具栏-->
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i>申请</button>
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除</button>           
+                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-tools pull-right">
+                                <div class="has-feedback">
+							          品牌名称:<input type="text" ng-model="searchEntity.name"> 品牌首字母:<input type="text" ng-model="searchEntity.firstChar"> <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">                               
+                                </div>
+                            </div>
+                            <!--工具栏/-->
+
+							<!--表单内容-->
+							<div class="tab-pane active" id="home">
+								<div class="row data-type">
+									<!--<div class="col-md-2 title">商品分类</div>
+
+									<div class="col-md-10 data">
+										<table>
+											<tr>
+												<td>
+													<select class="form-control" ng-model="entity.goods.category1Id" ng-options="item.id as item.name for item in itemCat1List">
+													</select>
+												</td>
+												<td>
+													<select class="form-control select-sm"  ng-model="entity.goods.category2Id" ng-options="item.id as item.name for item in itemCat2List"></select>
+												</td>
+												<td>
+													<select class="form-control select-sm" ng-model="entity.goods.category3Id" ng-options="item.id as item.name for item in itemCat3List"></select>
+												</td>
+												<td>
+													模板ID:{{entity.goods.typeTemplateId}}
+												</td>
+											</tr>
+										</table>
+
+									</div>-->
+
+									<div class="col-md-2 title">商品名称</div>
+									<div class="col-md-10 data">
+										<select class="form-control" ng-model="entity.itemId" ng-options="item.id as item.title for item in itemList" ></select>
+									</div>
+									<div class="col-md-2 title">秒杀价格</div>
+									<div class="col-md-10 data">
+										<div class="input-group">
+											<span class="input-group-addon">¥</span>
+											<input type="text"ng-model="entity.costPrice"   class="form-control"  placeholder="价格" value="">
+										</div>
+									</div>
+									<div class="col-md-2 title">秒杀商品数</div>
+									<div class="col-md-10 data">
+										<div class="input-group">
+											<span class="input-group-addon">件</span>
+											<input type="text"ng-model="entity.num"   class="form-control"  placeholder="价格" value="">
+										</div>
+									</div>
+									<div class="col-md-2 title">剩余库存数</div>
+									<div class="col-md-10 data">
+										<div class="input-group">
+											<span class="input-group-addon">件</span>
+											<input type="text"ng-model="entity.stockCount"   class="form-control"  placeholder="价格" value="">
+										</div>
+									</div>
+									<div class="col-md-2 title rowHeight2x">描述</div>
+									<div class="col-md-10 data rowHeight2x">
+
+										<textarea rows="4"  class="form-control"  ng-model="entity.introduction" placeholder="描述"></textarea>
+									</div>
+
+									<div class="col-md-2 title">开始时间</div>
+									<div class="col-md-10 data">
+										<input id="startDate" type="date" ng-model="entity.startTime" class="form-control" placeholder="开始时间" value="">
+									</div>
+
+									<div class="col-md-2 title">结束时间</div>
+									<div class="col-md-10 data">
+										<input id="endDate" type="date" ng-model="entity.endTime" class="form-control" placeholder="结束时间" value="">
+									</div>
+
+
+									<!--<div class="col-md-2 title">副标题</div>
+									<div class="col-md-10 data">
+										<input type="text" ng-model="entity.goods.caption"  class="form-control"   placeholder="副标题" value="">
+									</div>
+
+
+									<div class="col-md-2 title editer">商品介绍</div>
+									<div class="col-md-10 data editer">
+										<textarea name="content" style="width:800px;height:400px;visibility:hidden;" ></textarea>
+									</div>
+
+
+									<div class="col-md-2 title rowHeight2x">售后服务</div>
+									<div class="col-md-10 data rowHeight2x">
+										<textarea rows="4"  class="form-control"   ng-model="entity.goodsDesc.saleService"  placeholder="售后服务"></textarea>
+									</div>-->
+									<div class="btn-toolbar list-toolbar">
+										<button class="btn btn-primary" ng-click="commit(entity)"><i class="fa fa-save"></i>提交申请</button>
+										<button class="btn btn-default" >返回列表</button>
+									</div>
+
+								</div>
+							</div>
+
+							<!--图片上传
+							<div class="tab-pane" id="pic_upload">
+								<div class="row data-type">
+									&lt;!&ndash; 颜色图片 &ndash;&gt;
+									<div class="btn-group">
+										<button type="button" ng-click="image_entity={}" class="btn btn-default" title="新建" data-target="#uploadModal"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 新建</button>
+
+									</div>
+
+									<table class="table table-bordered table-striped table-hover dataTable">
+										<thead>
+										<tr>
+
+											<th class="sorting">颜色</th>
+											<th class="sorting">图片</th>
+											<th class="sorting">操作</th>
+										</thead>
+										<tbody>
+										<tr ng-repeat="pojo in entity.goodsDesc.itemImages">
+											<td>
+												{{pojo.color}}
+											</td>
+											<td>
+												<img alt="" src="{{pojo.url}}" width="100px" height="100px">
+											</td>
+											<td> <button type="button" ng-click="remove_iamge_entity($index)" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button></td>
+										</tr>
+										</tbody>
+									</table>
+									{{entity.goodsDesc.itemImages}}
+								</div>
+							</div>-->
+
+			                  <!--&lt;!&ndash;数据列表&ndash;&gt;
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+			                      <thead>
+			                          <tr>
+			                              <th class="" style="padding-right:0px">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                              </th> 
+										  <th class="sorting_asc">品牌ID</th>
+									      <th class="sorting">品牌名称</th>									      
+									      <th class="sorting">品牌首字母</th>
+									      <th class="sorting">审核状态</th>
+					                      <th class="text-center">操作</th>
+			                          </tr>
+			                      </thead>
+			                      <tbody>
+			                          <tr ng-repeat="entity in list">
+			                              <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)"></td>			                              
+				                          <td>{{entity.id}}</td>
+									      <td>{{entity.name}}</td>									     
+		                                  <td>{{entity.firstChar}}</td>
+		                                  <td>{{entity.status=="0"?"未审核":(entity.status=="1"?"已审核":"驳回")}}</td>
+		                                  <td class="text-center">
+		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>
+		                                  </td>
+			                          </tr>
+									  
+			                      </tbody>
+			                  </table>
+			                  &lt;!&ndash;数据列表/&ndash;&gt;
+							  
+							 
+                        </div>
+                        &lt;!&ndash; 数据表格 /&ndash;&gt;
+                        &lt;!&ndash; 分页 &ndash;&gt;
+						<tm-pagination conf="paginationConf"></tm-pagination>
+                        
+                     </div>
+                     {{selectIds}}
+                    &lt;!&ndash; /.box-body &ndash;&gt;
+         
+&lt;!&ndash; 编辑窗口 &ndash;&gt;
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">品牌编辑</h3>
+		</div>
+		<div class="modal-body">		
+			<table class="table table-bordered table-striped"  width="800px">
+		      	<tr>
+		      		<td>品牌名称</td>
+		      		<td><input ng-model="entity.name" class="form-control" placeholder="品牌名称" >  </td>
+		      	</tr>		      	
+		      	<tr>
+		      		<td>首字母</td>
+		      		<td><input ng-model="entity.firstChar" class="form-control" placeholder="首字母">  </td>
+		      	</tr>		      	
+			 </table>				
+		</div>
+		<div class="modal-footer">						
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">申请</button>
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+		</div>
+	  </div>
+	</div>
+</div>-->
+   
+</body>
+</html>
