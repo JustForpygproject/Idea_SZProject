@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/pyg_parent/service_buyer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/service_page" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/service_search" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/service_sellergoods" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/service_user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/web_manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/web_portal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/web_shop" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pyg_parent/web_user" charset="UTF-8" />
+  </component>
+</project>

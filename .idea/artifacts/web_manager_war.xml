@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="web_manager:war">
+    <output-path>$PROJECT_DIR$/pyg_parent/web_manager/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>web_manager</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="web_manager.war">
+      <element id="artifact" artifact-name="web_manager:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,9 +1,13 @@
 package cn.itcast.core.service;
 
 import cn.itcast.core.dao.user.UserDao;
+import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.pojo.user.UserQuery;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.activemq.command.ActiveMQMapMessage;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.Session;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -40,6 +45,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+
 
     @Override
     public void sendCode(final String phone) {
@@ -90,6 +97,40 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(User user) {
         userDao.insertSelective(user);
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> users = userDao.selectByExample(null);
+
+        return users;
+    }
+
+    /**
+     * 分页查询统计用户
+     * @param user
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Override
+    public PageResult findPage(User user, Integer page, Integer rows) {
+        //创建查询对象
+        UserQuery query = new UserQuery();
+        //组装条件
+        if (user != null) {
+            //创建sql语句中的where条件对象
+            UserQuery.Criteria criteria = query.createCriteria();
+
+
+            if (user.getUsername()!= null && !"".equals(user.getUsername())) {
+                criteria.andUsernameLike("%"+user.getUsername()+"%");
+            }
+        }
+        PageHelper.startPage(page, rows);
+        //查询
+        Page<User> usersList = (Page<User>)userDao.selectByExample(query);
+        return new PageResult(usersList.getTotal(), usersList.getResult());
     }
 
     public static void main(String[] args) {

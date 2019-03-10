@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="service_user:war">
+    <output-path>$PROJECT_DIR$/pyg_parent/service_user/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>service_user</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="service_user.war">
+      <element id="artifact" artifact-name="service_user:war exploded" />
+    </root>
+  </artifact>
+</component>

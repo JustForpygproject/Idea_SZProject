@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common" />
+        <module name="dao" />
+        <module name="interface" />
+        <module name="pojo" />
+        <module name="service_buyer" />
+        <module name="service_page" />
+        <module name="service_search" />
+        <module name="service_sellergoods" />
+        <module name="service_user" />
+        <module name="solr_util" />
+        <module name="web_manager" />
+        <module name="web_portal" />
+        <module name="web_shop" />
+        <module name="web_user" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.5" />
+      <module name="dao" target="1.5" />
+      <module name="interface" target="1.5" />
+      <module name="pojo" target="1.5" />
+      <module name="pyg_parent" target="1.5" />
+      <module name="service_buyer" target="1.7" />
+      <module name="service_page" target="1.7" />
+      <module name="service_search" target="1.7" />
+      <module name="service_sellergoods" target="1.7" />
+      <module name="service_user" target="1.7" />
+      <module name="solr_util" target="1.5" />
+      <module name="web_manager" target="1.7" />
+      <module name="web_portal" target="1.7" />
+      <module name="web_shop" target="1.7" />
+      <module name="web_user" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

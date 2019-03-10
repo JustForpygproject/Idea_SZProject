@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Idea_SZProject.iml" filepath="$PROJECT_DIR$/.idea/Idea_SZProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/common/common.iml" filepath="$PROJECT_DIR$/pyg_parent/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/dao/dao.iml" filepath="$PROJECT_DIR$/pyg_parent/dao/dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/interface/interface.iml" filepath="$PROJECT_DIR$/pyg_parent/interface/interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/pojo/pojo.iml" filepath="$PROJECT_DIR$/pyg_parent/pojo/pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/pyg_parent.iml" filepath="$PROJECT_DIR$/pyg_parent/pyg_parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/service_buyer/service_buyer.iml" filepath="$PROJECT_DIR$/pyg_parent/service_buyer/service_buyer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/service_page/service_page.iml" filepath="$PROJECT_DIR$/pyg_parent/service_page/service_page.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/service_search/service_search.iml" filepath="$PROJECT_DIR$/pyg_parent/service_search/service_search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/service_sellergoods/service_sellergoods.iml" filepath="$PROJECT_DIR$/pyg_parent/service_sellergoods/service_sellergoods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/service_user/service_user.iml" filepath="$PROJECT_DIR$/pyg_parent/service_user/service_user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/solr_util/solr_util.iml" filepath="$PROJECT_DIR$/pyg_parent/solr_util/solr_util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/web_manager/web_manager.iml" filepath="$PROJECT_DIR$/pyg_parent/web_manager/web_manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/web_portal/web_portal.iml" filepath="$PROJECT_DIR$/pyg_parent/web_portal/web_portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/web_shop/web_shop.iml" filepath="$PROJECT_DIR$/pyg_parent/web_shop/web_shop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg_parent/web_user/web_user.iml" filepath="$PROJECT_DIR$/pyg_parent/web_user/web_user.iml" />
+    </modules>
+  </component>
+</project>
