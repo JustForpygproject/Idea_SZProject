@@ -32,17 +32,18 @@
 	<bean id="pageAndSolrListener" class="cn.itcast.core.listener.ItemSearchListener"></bean>
 	
 	
-	<!-- 点对点模式，删除索引库-->  
-	<bean id="queueSolrDeleteDestination" class="org.apache.activemq.command.ActiveMQQueue">  
-	    <constructor-arg value="pinyougou_queue_solr_delete"/>  
+	<!-- 发布订阅模式，删除索引库-->
+	<bean id="deletopicPageAndSolrDestination" class="org.apache.activemq.command.ActiveMQTopic">
+	    <constructor-arg value="pinyougou_topic_solr_delete"/>
 	</bean>    
 	
-	<!-- 点对点模式, 消息监听容器  删除索引库-->
+	<!-- 发布订阅模式, 消息监听容器  删除索引库-->
 	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="destination" ref="queueSolrDeleteDestination" />
+		<property name="destination" ref="deletopicPageAndSolrDestination" />
 		<property name="messageListener" ref="itemDeleteListener" />
 	</bean>
+	<!--监听实现类-->
 	<bean id="itemDeleteListener" class="cn.itcast.core.listener.ItemDeleteListener"></bean>
 	
 </beans>

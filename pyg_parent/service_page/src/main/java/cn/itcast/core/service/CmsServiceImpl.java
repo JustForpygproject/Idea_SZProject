@@ -102,6 +102,7 @@ public class CmsServiceImpl implements CmsService , ServletContextAware{
         return rootMap;
     }
 
+
     /**
      * 本类实现了servletContextAware接口, 这个接口是spring框架负责实例化,
      * 实现这个接口的目的是为了给当前类中全局变量this.servletContext赋值, 也可以说是实例化
@@ -114,4 +115,25 @@ public class CmsServiceImpl implements CmsService , ServletContextAware{
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
+
+    /**
+     * 根据消息服务器传入的对应的goodsId删除对应的页面
+     * @param goodsId
+     */
+    @Override
+    public void deletePageByGoodsId(String goodsId) {
+        //创建查询对象
+        ItemQuery query = new ItemQuery();
+        //创建where条件语句
+        ItemQuery.Criteria criteria = query.createCriteria();
+        //将where语句goodsId = goodsId
+        criteria.andGoodsIdEqualTo(Long.parseLong(goodsId));
+        List<Item> itemList = itemDao.selectByExample(query);
+        //循环删除对应的页面
+        for (Item item : itemList) {
+            new File("E:\\shizhan\\pyg_parent\\pyg_parent\\service_page\\target\\service_page"+goodsId+".html").delete();
+        }
+
+    }
+
 }

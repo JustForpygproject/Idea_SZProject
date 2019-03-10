@@ -63,9 +63,9 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private ActiveMQTopic topicPageAndSolrDestination;
 
-    //下架使用, 下架的伤心id发送到这个队列中
+    //下架使用, 下架的sid发送到这个队列中
     @Autowired
-    private ActiveMQQueue queueSolrDeleteDestination;
+    private ActiveMQTopic deletopicPageAndSolrDestination;
 
     @Override
     public void add(GoodsEntity goodsEntity) {
@@ -160,7 +160,7 @@ public class GoodsServiceImpl implements GoodsService {
                 /**
                  * 2. 将商品id作为消息发送给消息服务器
                  */
-                jmsTemplate.send(queueSolrDeleteDestination, new MessageCreator() {
+                jmsTemplate.send(deletopicPageAndSolrDestination, new MessageCreator() {
                     @Override
                     public Message createMessage(Session session) throws JMSException {
                         TextMessage textMessage = session.createTextMessage(String.valueOf(id));
