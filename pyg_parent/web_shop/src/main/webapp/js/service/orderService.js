@@ -5,5 +5,8 @@ app.service('orderService',function($http){
 	this.findAll=function(){
 		return $http.get('../order/findAll.do');
 	}
-
+    //发货
+    this.sendGood=function(orderId){
+        return $http.get("../order/sendGood.do?orderId="+orderId);
+    }
 });

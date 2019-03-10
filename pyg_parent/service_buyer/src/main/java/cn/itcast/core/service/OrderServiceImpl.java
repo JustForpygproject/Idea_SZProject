@@ -129,6 +129,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void update(Long orderId) {
+
+    }
+
+    @Override
     public void updatePayLogAndOrderStatus(String out_trade_no) {
         //1. 根据支付单号修改支付日志表, 支付状态为已支付
         PayLog payLog = new PayLog();
