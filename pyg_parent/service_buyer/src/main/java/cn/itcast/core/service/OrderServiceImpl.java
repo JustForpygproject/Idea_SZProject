@@ -129,6 +129,37 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void updatePayLogAndOrderStatus(String out_trade_no) {
+        //1. 根据支付单号修改支付日志表, 支付状态为已支付
+        PayLog payLog = new PayLog();
+        payLog.setOutTradeNo(out_trade_no);
+        payLog.setTradeState("1");
+        payLogDao.updateByPrimaryKeySelective(payLog);
+        //2. 根据支付单号查询对应的支付日志对象
+        payLog = payLogDao.selectByPrimaryKey(out_trade_no);
+
+
+        //3. 获取支付日志对象的订单号属性
+        String orderListStr = payLog.getOrderList();
+        //4. 根据订单号修改订单表的支付状态为已支付
+        if (orderListStr != null) {
+            String[] orderIdArray = orderListStr.split(",");
+            if (orderIdArray != null) {
+                for (String orderId : orderIdArray) {
+                    Order order = new Order();
+                    order.setOrderId(Long.parseLong(orderId));
+                    order.setStatus("2");
+                    orderDao.updateByPrimaryKeySelective(order);
+                }
+            }
+        }
+
+
+        //5. 根据用户名清除redis中未支付的支付日志对象
+        redisTemplate.boundHashOps(Constants.REDIS_PAYLOG).delete(payLog.getUserId());
+    }
+
+    @Override
     public List<Order> findOrderList(String sellerId, Date startDate, Date endDate) {
         OrderQuery orderQuery = new OrderQuery();
         OrderQuery.Criteria orderQueryCriteria = orderQuery.createCriteria();
