@@ -128,10 +128,6 @@ public class OrderServiceImpl implements OrderService {
         return orderList;
     }
 
-    @Override
-    public void update(Long orderId) {
-
-    }
 
     @Override
     public void updatePayLogAndOrderStatus(String out_trade_no) {
@@ -203,5 +199,15 @@ public class OrderServiceImpl implements OrderService {
     private String dateMethod(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
+    }
+
+    @Override
+    public void update(Long orderId) {
+        Order order = new Order();
+        order.setStatus("4");
+        order.setOrderId(orderId);
+
+        orderDao.updateByPrimaryKeySelective(order);
+
     }
 }
