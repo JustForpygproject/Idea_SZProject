@@ -32,4 +32,20 @@ app.controller('orderController' ,function($scope,$controller,$location,orderSer
 			}
 		});
 	}
+
+//发货的方法
+    $scope.sendGood=function(orderId){
+        alert(orderId);
+        orderService.sendGood(orderId).success(
+            function(response){
+                if(response.success){
+                    location="http://localhost:8082/admin/order.html";
+                }else{
+                    alert(response.message);
+                }
+
+            }
+        );
+    }
+
 });	

@@ -1,4 +1,4 @@
-app.controller("seckillController",function($scope,$controller,$http,seckillService){
+app.controller("seckillOrderController",function($scope,$controller,$http,seckillOrderService){
 
     $scope.searchEntity={};
 
@@ -6,14 +6,7 @@ app.controller("seckillController",function($scope,$controller,$http,seckillServ
     // 假设定义一个查询的实体：searchEntity
     $scope.search = function(page,rows){
         // 向后台发送请求获取数据:
-        seckillService.search(page,rows,$scope.searchEntity).success(function(response){
-            $scope.paginationConf.totalItems = response.total;
-            $scope.seckillGoodslist = response.rows;
-        });
-    }
-    $scope.searchOrderList = function(page,rows){
-        // 向后台发送请求获取数据:
-        seckillService.searchOrderList(page,rows,$scope.searchEntity).success(function(response){
+        seckillOrderService.search(page,rows,$scope.searchEntity).success(function(response){
             $scope.paginationConf.totalItems = response.total;
             $scope.list = response.rows;
         });

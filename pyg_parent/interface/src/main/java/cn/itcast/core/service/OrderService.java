@@ -22,6 +22,8 @@ public interface OrderService {
 
 
     List<Order> fallAll(String username);
+
+    void update(Long orderId);
     /**
      * 根据支付单号修改, 支付状态为已支付
      * @param out_trade_no 支付单号
@@ -31,4 +33,5 @@ public interface OrderService {
     List<Order> findOrderList(String sellerId, Date startDate, Date endDate);
 
     List<Double> findSalesVolume(List<String> days, List<Order> orderList);
+
 }

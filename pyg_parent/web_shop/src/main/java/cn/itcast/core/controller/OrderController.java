@@ -1,5 +1,6 @@
 package cn.itcast.core.controller;
 
+import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.service.OrderService;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -21,5 +22,15 @@ public class OrderController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Order> orderList = orderService.fallAll(username);
         return orderList;
+    }
+    @RequestMapping("sendGood")
+    public Result sendGood(Long orderId){
+        try {
+            orderService.update(orderId);
+            return  new Result(true,"修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  new Result(false,"修改失败");
+        }
     }
 }
