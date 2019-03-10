@@ -123,4 +123,14 @@ public class OrderServiceImpl implements  OrderService {
         List<Order> orderList = orderDao.selectByExample(query);
         return orderList;
     }
+
+    @Override
+    public void update(Long orderId) {
+        Order order = new Order();
+        order.setStatus("4");
+        order.setOrderId(orderId);
+
+        orderDao.updateByPrimaryKeySelective(order);
+
+    }
 }

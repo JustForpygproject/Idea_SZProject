@@ -18,4 +18,6 @@ public interface OrderService {
 
 
     List<Order> fallAll(String username);
+
+    void update(Long orderId);
 }
