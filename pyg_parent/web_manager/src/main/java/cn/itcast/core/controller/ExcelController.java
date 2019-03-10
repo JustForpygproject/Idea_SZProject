@@ -29,7 +29,7 @@ public class ExcelController {
 
         // 定义表的标题
         String title = "订单导出数据";
-        //查询所有用户
+        //查询所有订单
         List<Order> orderList = excelService.findOrderList();
 
         //定义表的列名
@@ -116,10 +116,10 @@ public class ExcelController {
 
         // 定义表的标题
         String title = "商品导出数据";
-        //查询所有用户
+        //查询所有商品
         List<Goods> goodsList = excelService.findGoodsList();
         //定义表的列名
-        String[] rowsName = new String[] { "id", "seller_id", "goods_name", "audit-status", "brand_id", "caption"};
+        String[] rowsName = new String[] { "id", "seller_id", "goods_name", "audit_status", "brand_id", "caption"};
         //定义表的内容
         List<Object[]> dataList = new ArrayList<Object[]>();
         if (goodsList!=null){
