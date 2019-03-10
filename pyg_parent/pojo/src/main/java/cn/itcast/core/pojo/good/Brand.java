@@ -14,6 +14,18 @@ public class Brand implements Serializable {
      * 品牌首字母
      */
     private String firstChar;
+    /*
+    * 品牌审核状态 0未审核 1已审核 2驳回
+    * */
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     private static final long serialVersionUID = 1L;
 

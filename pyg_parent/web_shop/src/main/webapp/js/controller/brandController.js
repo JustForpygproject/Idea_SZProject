@@ -11,6 +11,8 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 		});
 	}
 
+
+
 	// 分页查询
 	$scope.findByPage = function(page,rows){
 		// 向后台发送请求获取数据:
@@ -79,18 +81,5 @@ app.controller("brandController",function($scope,$controller,$http,brandService)
 			$scope.list = response.rows;
 		});
 	}
-
-
-
-    $scope.updateStatus = function(status){
-        brandService.updateStatus($scope.selectIds,status).success(function(response){
-            if(response.success){
-                $scope.reloadList();//刷新列表
-                $scope.selectIds = [];
-            }else{
-                alert(response.message);
-            }
-        });
-    }
 	
 });

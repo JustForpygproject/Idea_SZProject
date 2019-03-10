@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- 引入angular的js -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 引入分页相关的JS和CSS -->
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/goodsController.js"></script>
+    <script type="text/javascript" src="../js/service/goodsService.js"></script>
+    <script type="text/javascript" src="../js/service/itemCatService.js"></script>
+    <script type="text/javascript" src="../js/service/uploadService.js"></script>
+    <script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="../js/echarts.js"></script>
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController"
+      ng-init="findItemCatList()">
+<!-- .box-body -->
+
+<div class="box-header with-border">
+    <h3 class="box-title">商品管理</h3>
+</div>
+
+<div class="box-body">
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <a href="goods_edit.html" class="btn btn-default">新建</a>
+                    <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" title="提交审核"><i class="fa fa-check"></i> 提交审核</button>
+                    <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i
+                            class="fa fa-ban"></i> 屏蔽
+                    </button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                状态：<select ng-model="searchEntity.auditStatus">
+                <option value="">全部</option>
+                <option value="0">未申请</option>
+                <option value="1">审核通过</option>
+                <option value="2">审核未通过</option>
+                <option value="3">关闭</option>
+            </select>
+                商品名称：<input type="text" ng-model="searchEntity.goodsName">
+                <button class="btn btn-default" ng-click="reloadList()">查询</button>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <div style="display: block">
+                    起始时间:<input type="date" value="" id="startDate">
+                </div>
+            </tr>
+            <tr>
+                <div style="display: block">
+                    截止时间:<input type="date" value="" id="endDate">
+                </div>
+            </tr>
+            <tr>
+                <div style="display: block">
+                    <input type="button" id="getdata" value="获取数据"/>
+                </div>
+            </tr>
+        </table>
+
+
+
+
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <script type="text/javascript">
+            $(function () {
+
+                $("#getdata").click(function () {
+                    /*获取起止时间*/
+                    var startDate = $("#startDate").val();
+                    var endDate = $("#endDate").val();
+                    startDate = startDate.split("-").join("/");
+                    endDate = endDate.split("-").join("/");
+                    /*请求后台*/
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:8082/sales_volume/findSalesVolume.do",
+                        data: {startDate: startDate, endDate: endDate},
+                        dataType: "json",
+                        success: function (data) {
+
+                            showLine(data.days, data.salesVolumeList);
+                        }
+                    });
+                });
+            });
+
+            function showLine(days, salesVolumeList) {
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    xAxis: {
+                        type: 'category',
+                        data: days
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: salesVolumeList,//[820, 932, 901, 934, 1290, 1330, 1320],
+                        type: 'line'
+                    }]
+                };
+
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+            };
+
+        </script>
+    </div>
+    <!-- /.box-body -->
+
+</body>
+
+</html>

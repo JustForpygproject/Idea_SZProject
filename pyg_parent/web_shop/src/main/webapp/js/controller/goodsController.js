@@ -10,7 +10,33 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 				$scope.list=response;
 			}			
 		);
-	}    
+	}
+
+    //查询所有库存集合
+    $scope.searchItemList = function(){
+        // 向后台发送请求:
+        goodsService.searchItemList().success(function(response){
+            $scope.itemList = response;
+        });
+    }
+	//提交秒杀商品请求
+    $scope.commit = function(){
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        startDate = startDate.split("-").join("/");
+        endDate = endDate.split("-").join("/");
+        $scope.entity.startTime = startDate;
+        $scope.entity.endTime = endDate;
+        // 向后台发送请求:
+        goodsService.commit($scope.entity).success(function(response){
+            if(response.success){
+                //重新查询
+                alert(response.message);
+            }else{
+                alert(response.message);
+            }
+        });
+    }
 	
 	//分页
 	$scope.findPage=function(page,rows){			
