@@ -8,13 +8,6 @@ app.controller("seckillController",function($scope,$controller,$http,seckillServ
         // 向后台发送请求获取数据:
         seckillService.search(page,rows,$scope.searchEntity).success(function(response){
             $scope.paginationConf.totalItems = response.total;
-            $scope.seckillGoodslist = response.rows;
-        });
-    }
-    $scope.searchOrderList = function(page,rows){
-        // 向后台发送请求获取数据:
-        seckillService.searchOrderList(page,rows,$scope.searchEntity).success(function(response){
-            $scope.paginationConf.totalItems = response.total;
             $scope.list = response.rows;
         });
     }

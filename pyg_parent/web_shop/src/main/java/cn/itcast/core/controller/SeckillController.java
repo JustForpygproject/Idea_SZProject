@@ -1,9 +1,11 @@
 package cn.itcast.core.controller;
 
+import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.SeckillEntity;
 import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.seckill.SeckillGoods;
+import cn.itcast.core.pojo.seckill.SeckillOrder;
 import cn.itcast.core.service.GoodsService;
 import cn.itcast.core.service.SeckillService;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -48,6 +50,12 @@ public class SeckillController {
         String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Item> itemList = goodsService.searchItemsBySellerId(sellerId);
         return itemList;
+    }
+
+    @RequestMapping("search")
+    public PageResult search(Integer page, Integer rows, @RequestBody SeckillOrder seckillOrder){
+        String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return seckillService.searchOrderList(sellerId,page,rows,seckillOrder);
     }
 
 }

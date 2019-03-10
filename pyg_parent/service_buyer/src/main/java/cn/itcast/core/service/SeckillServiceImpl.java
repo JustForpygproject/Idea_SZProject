@@ -3,11 +3,14 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.seckill.SeckillGoodsDao;
+import cn.itcast.core.dao.seckill.SeckillOrderDao;
 import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.entity.SeckillEntity;
 import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.seckill.SeckillGoods;
 import cn.itcast.core.pojo.seckill.SeckillGoodsQuery;
+import cn.itcast.core.pojo.seckill.SeckillOrder;
+import cn.itcast.core.pojo.seckill.SeckillOrderQuery;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,6 +26,8 @@ public class SeckillServiceImpl implements SeckillService {
 
     @Autowired
     private SeckillGoodsDao seckillGoodsDao;
+    @Autowired
+    private SeckillOrderDao seckillOrderDao;
     @Autowired
     private ItemDao itemDao;
 
@@ -82,5 +87,35 @@ public class SeckillServiceImpl implements SeckillService {
 
             }
         }
+    }
+
+    @Override
+    public PageResult searchOrderList(String sellerId, Integer page, Integer rows, SeckillOrder seckillOrder) {
+        SeckillOrderQuery query = new SeckillOrderQuery();
+        SeckillOrderQuery.Criteria criteria = query.createCriteria();
+        if (seckillOrder.getUserId() != null && !"".equals(seckillOrder.getUserId())){
+            criteria.andUserIdLike("%"+seckillOrder.getUserId()+"%");
+        }
+        criteria.andSellerIdEqualTo(sellerId);
+        PageHelper.startPage(page,rows);
+        List<SeckillOrder> seckillOrderList = seckillOrderDao.selectByExample(query);
+        PageInfo<SeckillOrder> pageInfo = new PageInfo<>(seckillOrderList);
+        return new PageResult(pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    @Override
+    public PageResult searchOrderList(Integer page, Integer rows, SeckillOrder seckillOrder) {
+        SeckillOrderQuery query = new SeckillOrderQuery();
+        SeckillOrderQuery.Criteria criteria = query.createCriteria();
+        if (seckillOrder.getUserId() != null && !"".equals(seckillOrder.getUserId())){
+            criteria.andUserIdLike("%"+seckillOrder.getUserId()+"%");
+        }
+        if (seckillOrder.getSellerId() != null && !"".equals(seckillOrder.getSellerId())){
+            criteria.andSellerIdLike("%"+seckillOrder.getSellerId()+"%");
+        }
+        PageHelper.startPage(page,rows);
+        List<SeckillOrder> seckillOrderList = seckillOrderDao.selectByExample(query);
+        PageInfo<SeckillOrder> pageInfo = new PageInfo<>(seckillOrderList);
+        return new PageResult(pageInfo.getTotal(),pageInfo.getList());
     }
 }

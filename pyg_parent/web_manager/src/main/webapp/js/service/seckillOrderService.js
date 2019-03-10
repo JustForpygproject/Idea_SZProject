@@ -1,8 +1,6 @@
-app.service("seckillService",function($http){
+app.service("seckillOrderService",function($http){
+
     this.search = function(page,rows,searchEntity){
-        return $http.post("../seckill/search.do?page="+page+"&rows="+rows,searchEntity);
-    }
-    this.searchOrderList = function(page,rows,searchEntity){
         return $http.post("../seckill/searchOrderList.do?page="+page+"&rows="+rows,searchEntity);
     }
 
