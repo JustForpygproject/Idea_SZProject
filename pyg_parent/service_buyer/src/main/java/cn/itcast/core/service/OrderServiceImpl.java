@@ -120,6 +120,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> fallAll(String username) {
+        OrderQuery query =  new OrderQuery();
+        OrderQuery.Criteria criteria = query.createCriteria();
+        criteria.andSellerIdEqualTo(username);
+        List<Order> orderList = orderDao.selectByExample(query);
+        return orderList;
+    }
+
+    @Override
     public void updatePayLogAndOrderStatus(String out_trade_no) {
         //1. 根据支付单号修改支付日志表, 支付状态为已支付
         PayLog payLog = new PayLog();

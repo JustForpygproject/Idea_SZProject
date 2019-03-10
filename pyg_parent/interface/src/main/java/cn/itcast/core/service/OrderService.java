@@ -6,6 +6,10 @@ import cn.itcast.core.pojo.order.Order;
 import java.util.Date;
 import java.util.List;
 
+
+
+import java.util.List;
+
 public interface OrderService {
 
     /**
@@ -16,6 +20,8 @@ public interface OrderService {
      */
     public void add(Order order);
 
+
+    List<Order> fallAll(String username);
     /**
      * 根据支付单号修改, 支付状态为已支付
      * @param out_trade_no 支付单号
