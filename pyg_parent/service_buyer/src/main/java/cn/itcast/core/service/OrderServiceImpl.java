@@ -62,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
                 tborder.setUserId(pageOrder.getUserId());//用户名
                 tborder.setPaymentType(pageOrder.getPaymentType());//支付类型
                 tborder.setStatus("1");//状态：未付款
+
                 tborder.setCreateTime(new Date());//订单创建日期
                 tborder.setUpdateTime(new Date());//订单更新日期
                 tborder.setReceiverAreaName(pageOrder.getReceiverAreaName());//地址

@@ -32,10 +32,10 @@
 	</bean>
 	   
 	
-	<!-- 点对点模式，删除索引库-->  
-	<bean id="queueSolrDeleteDestination" class="org.apache.activemq.command.ActiveMQQueue">
+	<!-- 订阅发布模式，删除索引库和删除静态页面-->
+	<bean id="deletopicPageAndSolrDestination" class="org.apache.activemq.command.ActiveMQTopic">
 		<!-- 定义下架使用的队列名称-->
-	    <constructor-arg value="pinyougou_queue_solr_delete"/>  
-	</bean>  
+	    <constructor-arg value="pinyougou_topic_solr_delete"/>
+	</bean>
 	
 </beans>

@@ -53,6 +53,7 @@ public class SolrManagerServiceImpl implements SolrManagerService {
     public void deleteItemByGoodsId(Long goodsId) {
         //创建查询对象
         Query query = new SimpleQuery();
+
         //创建条件对象
         Criteria criteria = new Criteria("item_goodsid").is(goodsId);
         query.addCriteria(criteria);

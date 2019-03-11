@@ -29,6 +29,21 @@
 		<property name="destination" ref="topicPageAndSolrDestination" />
 		<property name="messageListener" ref="pageListener" />
 	</bean>
+	<!--监听实现类-->
 	<bean id="pageListener" class="cn.itcast.core.listener.PageListener"></bean>
+
+	<!-- 发布订阅模式，删除删除页面-->
+	<bean id="deletopicPageAndSolrDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="pinyougou_topic_solr_delete"/>
+	</bean>
+
+	<!-- 发布订阅模式, 消息监听容器  删除页面-->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="deletopicPageAndSolrDestination" />
+		<property name="messageListener" ref="PageDeleListener" />
+	</bean>
+	<!--监听实现类-->
+	<bean id="PageDeleListener" class="cn.itcast.core.listener.PageDeleteListener"></bean>
 	
 </beans>
