@@ -8,11 +8,30 @@
     <title>待付款</title>
      <link rel="icon" href="assets/img/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+	<!--bootstrap核心-->
+	<link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/webbase.css" />
+	<link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+	<!--分页效果 bootstrap-->
+	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!--angularJs核心-->
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+	<!-- 引入分页相关的JS和CSS -->
+	<script type="text/javascript" src="plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="plugins/angularjs/pagination.css">
+
+	<script type="text/javascript" src="js/base.js"></script>
+	<!--分页?-->
+	<script type="text/javascript" src="js/base_pagination.js"></script>
+	<script type="text/javascript" src="js/controller/baseController.js"></script>
+	<script type="text/javascript" src="js/service/loginService.js"></script>
+	<script type="text/javascript" src="js/service/orderSearchService.js"></script>
+	<script type="text/javascript" src="js/controller/indexController.js"></script>
+
 </head>
 
-<body>
+<body ng-app="pinyougou" ng-controller="indexController" ng-init="showName();status='1'">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -86,7 +105,7 @@
 						<div class="fr shopcar">
 							<div class="show-shopcar" id="shopcar">
 								<span class="car"></span>
-								<a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+								<a class="sui-btn btn-default btn-xlarge" ng-click="openCartPage()" target="_blank">
 									<span>我的购物车</span>
 									<i class="shopnum">0</i>
 								</a>
@@ -142,7 +161,7 @@ $(function(){
 <script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/widget/nav.js"></script>
-</body>
+</body >
     <!--header-->
     <div id="account">
         <div class="py-container">
@@ -153,8 +172,8 @@ $(function(){
                     <div class="person-info">
                         <div class="person-photo"><img src="img/_/photo.png" alt=""></div>
                         <div class="person-account">
-                            <span class="name">Michelle</span>
-                            <span class="safe">账户安全</span>
+							<span class="name">{{loginName}}</span>
+							<span class="safe"><a href="logout/cas">退出登录 </a></span>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -204,8 +223,8 @@ $(function(){
 
                         <div class="order-detail">
                             <div class="orders">
-                                <div class="choose-order">
-                                    <label data-toggle="checkbox" class="checkbox-pretty checked">
+                                <div class="choose-order" ng-repeat="order in list">
+                                    <!--<label data-toggle="checkbox" class="checkbox-pretty checked">
                                         <input type="checkbox" checked="checked"><span>全选</span>
                                     </label>
                                     <a href="" class="sui-btn btn-info btn-bordered hepay-btn">合并付款</a>
@@ -216,11 +235,15 @@ $(function(){
                                             <li class="next"><a href="#">下一页</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div>-->
 
-                                <div class="choose-title">
+                                <div class="choose-title" >
                                     <label data-toggle="checkbox" class="checkbox-pretty ">
-                                           <input type="checkbox" checked="checked"><span>2017-02-11 11:59　订单编号：7867473872181848  店铺：哇哈哈 <a>和我联系</a></span>
+                                           <input type="checkbox" checked="checked">
+                                        <span>
+                                        {{order.createTime}} &nbsp;&nbsp; 订单编号：{{order.orderIdStr}}  &nbsp;&nbsp;店铺: <a>{{order.sellerId}}</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>和我联系</a>
+                                        </span>
                                      </label>
                                     <a class="sui-btn btn-info share-btn">分享</a>
                                 </div>
@@ -229,36 +252,38 @@ $(function(){
                                     <tbody>
                                         <tr>
                                             <td width="35%">
-                                                <div class="typographic"><img src="img/goods.png" />
-                                                    <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
-                                                    <span class="guige">规格：温泉喷雾150ml</span>
+                                                <div class="typographic"><img src="{{order.picPath}}" hight="100" width="100"/>
+                                                    <a href="#" class="block-text">{{order.title}}</a>
+                                                    <span class="guige">{{order.goodsSpec}}</span>
                                                 </div>
                                             </td>
                                             <td width="5%" class="center">
                                                 <ul class="unstyled">
-                                                    <li class="o-price">¥599.00</li>
-                                                    <li>¥299.00</li>
+                                                    <!--<li class="o-price">¥599.00</li>-->
+                                                    <li>¥{{order.price}}</li>
                                                 </ul>
                                             </td>
-                                            <td width="5%" class="center">1</td>
-                                            <td width="8%" class="center"></td>
+                                            <td width="5%" class="center">{{order.num}}</td>
+                                            <td width="8%" class="center">
+												<a>{{out[order.status]}}</a>
+											</td>
                                             <td width="10%" class="center">
                                                 <ul class="unstyled">
-                                                    <li>¥299.00</li>
-                                                    <li>（含运费：￥0.00）</li>
+                                                    <li>¥{{order.totalFee}}</li>
+                                                    <li>（含运费：￥{{order.postFee}}）</li>
                                                 </ul>
                                             </td>
                                             <td width="10%" class="center">
                                                 <ul class="unstyled">
-                                                    <li>等待买家付款</li>
+                                                    <li>{{status[order.status]}}</li>
                                                     <li><a href="orderDetail.html" class="btn">订单详情 </a></li>
                                                 </ul>
-
+												<!--<input type="hidden" ng-model="status">-->
 
                                             </td>
                                             <td width="10%" class="center">
-                                                <ul class="unstyled">
-                                                    <li><a href="#" class="sui-btn btn-info">立即付款</a></li>
+                                                <ul class="unstyled"><!--ng-click="goToPayPage(order.orderIdStr)"-->
+                                                    <li><a href="http://localhost:8080/pay.html" class="sui-btn btn-info" >{{payStatus[order.status]}}</a></li>
                                                     <li><a href="#">取消订单</a></li>
                                                 </ul>
                                             </td>
@@ -270,7 +295,7 @@ $(function(){
                             </div>
 
                             <div class="choose-order">
-                                <label data-toggle="checkbox" class="checkbox-pretty checked">
+                                <!--<label data-toggle="checkbox" class="checkbox-pretty checked">
                                         <input type="checkbox" checked="checked"><span>全选</span>
                                     </label>
                                 <a href="" class="sui-btn btn-info btn-bordered hepay-btn">合并付款</a>
@@ -287,7 +312,9 @@ $(function(){
                                             到
                                             <input type="text" class="page-num"><button class="page-confirm" onclick="alert(1)">确定</button>
                                             页</span></div>
-                                </div>
+                                </div>-->
+								<!-- 分页 -->
+								<tm-pagination conf="paginationConf"></tm-pagination>
                             </div>
 
                             <div class="clearfix"></div>

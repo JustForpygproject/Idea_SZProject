@@ -1,6 +1,10 @@
 //服务层
 app.service('userService',function($http){
-	    	
+
+    //读取列表数据绑定到表单中
+    this.showName=function(){
+        return $http.get('../login/name.do');
+    }
 	//读取列表数据绑定到表单中
 	this.findAll=function(){
 		return $http.get('../user/findAll.do');		
@@ -13,6 +17,10 @@ app.service('userService',function($http){
 	this.findOne=function(id){
 		return $http.get('../user/findOne.do?id='+id);
 	}
+    //查询实体
+    this.findEntity=function(){
+        return $http.get('../user/findEntity.do');
+    }
 	//增加 
 	this.add=function(entity,smscode){
 		return  $http.post('../user/add.do?smscode='+smscode,entity );
@@ -33,6 +41,5 @@ app.service('userService',function($http){
 	this.sendCode=function(phone){
 		return $http.get('../user/sendCode.do?phone='+phone);
 	}
-
-
+	
 });

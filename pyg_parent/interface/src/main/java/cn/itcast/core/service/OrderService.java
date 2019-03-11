@@ -1,7 +1,9 @@
 package cn.itcast.core.service;
 
 import cn.itcast.core.pojo.entity.PageResult;
+import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
+
 
 public interface OrderService {
 
@@ -19,11 +21,15 @@ public interface OrderService {
      */
     public void  updatePayLogAndOrderStatus(String out_trade_no);
 
-    /* 高级查询(分页, 高级查询)
-     * @param order 需要查询的条件订单对象
-     * @param page  当前页
-     * @param rows  每页展示多少条数据
-     * @return
-     */
-    public PageResult findPage(Order order, Integer page, Integer rows);
+
+    PageResult search(Integer page, Integer rows, String userName, String status);
+
+
+    PayLog findPayLog(String orderIdStr);
+
+    void updateOrderStatus(String orderIdStr);
 }
+
+
+
+

@@ -22,4 +22,47 @@ public class AddressServiceImpl implements AddressService {
         List<Address> addresses = addressDao.selectByExample(query);
         return addresses;
     }
+
+    /**
+     * 添加用户 地址
+     *
+     * @param address
+     */
+    @Override
+    public void addUserAddress(Address address) {
+        addressDao.insertSelective(address);
+    }
+
+
+    /**
+     * 根据用户地址编号删除
+     *
+     * @param
+     */
+    @Override
+    public void dele(long id) {
+        addressDao.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 根据编号查询地址
+     *
+     * @param id 编号
+     * @return
+     */
+    @Override
+    public Address findOne(Long id) {
+        return addressDao.selectByPrimaryKey(id);
+
+    }
+
+    /**
+     * 修改地址
+     *
+     * @param address
+     */
+    @Override
+    public void updateAddress(Address address) {
+        addressDao.updateByPrimaryKeySelective(address);
+    }
 }

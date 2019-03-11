@@ -27,4 +27,7 @@ public interface PayService {
      * @return
      */
     public PayLog findPageLogFromRedis(String userName);
+
+    //关闭订单
+    void closeorder(String out_trade_no);
 }

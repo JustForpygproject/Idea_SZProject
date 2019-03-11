@@ -4,5 +4,7 @@ app.service('loginService',function($http){
 	this.showName=function(){
 		return $http.get('../login/name.do');
 	}
-	
+	this.findAllCollect=function () {
+		return $http.get('../myCollect/findAllCollect.do');
+    }
 });

@@ -95,6 +95,28 @@ public class Order implements Serializable {
      */
     private String receiverAreaName;
 
+
+    private String longtime;
+    private String timeBegin;
+    private String timeEnd;
+
+    public String getTimeBegin() {
+        return timeBegin;
+    }
+
+    public void setTimeBegin(String timeBegin) {
+        this.timeBegin = timeBegin;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+
     /**
      * 收货人手机
      */
@@ -154,6 +176,14 @@ public class Order implements Serializable {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType == null ? null : paymentType.trim();
+    }
+
+    public String getLongtime() {
+        return longtime;
+    }
+
+    public void setLongtime(String longtime) {
+        this.longtime = longtime;
     }
 
     public String getPostFee() {
@@ -381,30 +411,30 @@ public class Order implements Serializable {
         }
         Order other = (Order) that;
         return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getPayment() == null ? other.getPayment() == null : this.getPayment().equals(other.getPayment()))
-            && (this.getPaymentType() == null ? other.getPaymentType() == null : this.getPaymentType().equals(other.getPaymentType()))
-            && (this.getPostFee() == null ? other.getPostFee() == null : this.getPostFee().equals(other.getPostFee()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getPaymentTime() == null ? other.getPaymentTime() == null : this.getPaymentTime().equals(other.getPaymentTime()))
-            && (this.getConsignTime() == null ? other.getConsignTime() == null : this.getConsignTime().equals(other.getConsignTime()))
-            && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
-            && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
-            && (this.getShippingName() == null ? other.getShippingName() == null : this.getShippingName().equals(other.getShippingName()))
-            && (this.getShippingCode() == null ? other.getShippingCode() == null : this.getShippingCode().equals(other.getShippingCode()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getBuyerMessage() == null ? other.getBuyerMessage() == null : this.getBuyerMessage().equals(other.getBuyerMessage()))
-            && (this.getBuyerNick() == null ? other.getBuyerNick() == null : this.getBuyerNick().equals(other.getBuyerNick()))
-            && (this.getBuyerRate() == null ? other.getBuyerRate() == null : this.getBuyerRate().equals(other.getBuyerRate()))
-            && (this.getReceiverAreaName() == null ? other.getReceiverAreaName() == null : this.getReceiverAreaName().equals(other.getReceiverAreaName()))
-            && (this.getReceiverMobile() == null ? other.getReceiverMobile() == null : this.getReceiverMobile().equals(other.getReceiverMobile()))
-            && (this.getReceiverZipCode() == null ? other.getReceiverZipCode() == null : this.getReceiverZipCode().equals(other.getReceiverZipCode()))
-            && (this.getReceiver() == null ? other.getReceiver() == null : this.getReceiver().equals(other.getReceiver()))
-            && (this.getExpire() == null ? other.getExpire() == null : this.getExpire().equals(other.getExpire()))
-            && (this.getInvoiceType() == null ? other.getInvoiceType() == null : this.getInvoiceType().equals(other.getInvoiceType()))
-            && (this.getSourceType() == null ? other.getSourceType() == null : this.getSourceType().equals(other.getSourceType()))
-            && (this.getSellerId() == null ? other.getSellerId() == null : this.getSellerId().equals(other.getSellerId()));
+                && (this.getPayment() == null ? other.getPayment() == null : this.getPayment().equals(other.getPayment()))
+                && (this.getPaymentType() == null ? other.getPaymentType() == null : this.getPaymentType().equals(other.getPaymentType()))
+                && (this.getPostFee() == null ? other.getPostFee() == null : this.getPostFee().equals(other.getPostFee()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+                && (this.getPaymentTime() == null ? other.getPaymentTime() == null : this.getPaymentTime().equals(other.getPaymentTime()))
+                && (this.getConsignTime() == null ? other.getConsignTime() == null : this.getConsignTime().equals(other.getConsignTime()))
+                && (this.getEndTime() == null ? other.getEndTime() == null : this.getEndTime().equals(other.getEndTime()))
+                && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
+                && (this.getShippingName() == null ? other.getShippingName() == null : this.getShippingName().equals(other.getShippingName()))
+                && (this.getShippingCode() == null ? other.getShippingCode() == null : this.getShippingCode().equals(other.getShippingCode()))
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getBuyerMessage() == null ? other.getBuyerMessage() == null : this.getBuyerMessage().equals(other.getBuyerMessage()))
+                && (this.getBuyerNick() == null ? other.getBuyerNick() == null : this.getBuyerNick().equals(other.getBuyerNick()))
+                && (this.getBuyerRate() == null ? other.getBuyerRate() == null : this.getBuyerRate().equals(other.getBuyerRate()))
+                && (this.getReceiverAreaName() == null ? other.getReceiverAreaName() == null : this.getReceiverAreaName().equals(other.getReceiverAreaName()))
+                && (this.getReceiverMobile() == null ? other.getReceiverMobile() == null : this.getReceiverMobile().equals(other.getReceiverMobile()))
+                && (this.getReceiverZipCode() == null ? other.getReceiverZipCode() == null : this.getReceiverZipCode().equals(other.getReceiverZipCode()))
+                && (this.getReceiver() == null ? other.getReceiver() == null : this.getReceiver().equals(other.getReceiver()))
+                && (this.getExpire() == null ? other.getExpire() == null : this.getExpire().equals(other.getExpire()))
+                && (this.getInvoiceType() == null ? other.getInvoiceType() == null : this.getInvoiceType().equals(other.getInvoiceType()))
+                && (this.getSourceType() == null ? other.getSourceType() == null : this.getSourceType().equals(other.getSourceType()))
+                && (this.getSellerId() == null ? other.getSellerId() == null : this.getSellerId().equals(other.getSellerId()));
     }
 
     @Override
@@ -437,5 +467,33 @@ public class Order implements Serializable {
         result = prime * result + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
         result = prime * result + ((getSellerId() == null) ? 0 : getSellerId().hashCode());
         return result;
+    }
+
+
+    public void setOrderIdStr(String orderIdStr) {
+    }
+
+    public void setTitle(String title) {
+
+    }
+
+    public void setPrice(BigDecimal price) {
+
+    }
+
+    public void setNum(Integer num) {
+
+    }
+
+    public void setTotalFee(BigDecimal totalFee) {
+
+    }
+
+    public void setPicPath(String picPath) {
+
+    }
+
+    public void setGoodsSpec(String spec) {
+
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.github.wxpay.sdk.WXPayUtil.MD5;
+
 @Service
 public class PayServiceImpl implements  PayService {
 
@@ -104,4 +106,48 @@ public class PayServiceImpl implements  PayService {
         PayLog payLog = (PayLog)redisTemplate.boundHashOps(Constants.REDIS_PAYLOG).get(userName);
         return payLog;
     }
-}
+//关闭订单
+    @Override
+    public void closeorder(String out_trade_no)   {
+        //1.创建参数
+        HttpClient client= null;
+        try {
+            Map<String,String> param = new HashMap();//创建参数
+            param.put("appid", appid);//公众号
+            param.put("mch_id", partner);//商户号
+            param.put("nonce_str", WXPayUtil.generateNonceStr());//随机字符串
+            param.put("body", "品优购");//商品描述
+            param.put("out_trade_no", out_trade_no);//商户订单号
+            String sign = signNum(appid, param.get("body"), out_trade_no, partner, WXPayUtil.generateNonceStr());
+            param.put("sign", sign);
+            String xmlParam = WXPayUtil.generateSignedXml(param, partnerkey);
+            System.out.println(xmlParam);
+            //使用httpclient工具模拟https请求, 请求微信统一下单接口
+            client = new HttpClient("https://api.mch.weixin.qq.com/pay/closeorder");
+            client.setHttps(true);
+            client.setXmlParam(xmlParam);
+            client.post();
+           /* //3.获得结果
+
+            Map<String, String> resultMap = WXPayUtil.xmlToMap(result);
+            Map<String, String> map=new HashMap<>();
+            map.put("code_url", resultMap.get("code_url"));//支付地址
+
+            map.put("out_trade_no",out_trade_no);//订单号
+            return map;*/
+            String result = client.getContent();
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private String signNum(String appid,String body,String out_trade_no,String mch_id,String
+            nonce_str) throws Exception {
+        //生成sign  用md5加密并大写
+       String stringA="appid="+appid+"&body="+body+"&out_trade_no="+out_trade_no+"&mch_id="+mch_id+"&nonce_str="+nonce_str;
+       String stringSignTemp = stringA+"&key="+partnerkey;
+       String sign = MD5(stringSignTemp).toUpperCase();//注：MD5签名方式
+        return  sign;
+        }}
