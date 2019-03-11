@@ -1,6 +1,7 @@
 package cn.itcast.core.controller;
 
 
+import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.service.ExcelService;
 import cn.itcast.core.util.uploadUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -12,20 +13,22 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("upload")
 public class ImportController {
 
     @Reference
     private ExcelService excelService;
 
     @RequestMapping("importExcel")
-    public void importExcel(MultipartFile file) throws Exception {
+    public Result importExcel(MultipartFile file) throws Exception {
         String originalFilename = file.getOriginalFilename();
         try {
             uploadUtil.upLoadFile(file);
             excelService.importExcel();
+            return new Result(true,"导入成功!");
         } catch (IOException e) {
             e.printStackTrace();
+            return new Result(false,"导入失败!");
         }
 
     }

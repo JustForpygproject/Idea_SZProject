@@ -26,7 +26,7 @@ public class ReadExcel {
                 continue;
             }
             // 循环行Row
-            for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
+            for (int rowNum = 4; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
                 HSSFRow hssfRow = hssfSheet.getRow(rowNum);
                 if (hssfRow != null) {
                     brand = new Brand();
