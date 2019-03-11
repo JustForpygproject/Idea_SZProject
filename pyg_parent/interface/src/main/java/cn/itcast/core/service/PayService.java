@@ -27,4 +27,10 @@ public interface PayService {
      * @return
      */
     public PayLog findPageLogFromRedis(String userName);
+
+    /**
+     *
+     超时关闭订单
+     */
+    public void closeorder(String out_trade_no) throws Exception;
 }

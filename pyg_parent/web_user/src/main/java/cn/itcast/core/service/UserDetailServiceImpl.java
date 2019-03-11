@@ -1,5 +1,6 @@
 package cn.itcast.core.service;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +16,22 @@ import java.util.List;
  * 就会放行, 因为有权限访问
  */
 public class UserDetailServiceImpl implements UserDetailsService {
+    @Reference
+    private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //创建权限集合
-        List<SimpleGrantedAuthority> authList =  new ArrayList<SimpleGrantedAuthority>();
-        //向权限集合中加入对应的访问权限
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new User(username, "", authList);
+        if (username != null) {
+            if ("0".equals(userService.findStatusByUserName(username).getStatus())) {
+                //创建权限集合
+                List<SimpleGrantedAuthority> authList =  new ArrayList<SimpleGrantedAuthority>();
+                //向权限集合中加入对应的访问权限
+                authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+                return new User(username, "", authList);
+            }
+
+        }
+        return null;
     }
 }

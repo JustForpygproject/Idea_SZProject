@@ -21,6 +21,8 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +104,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         List<User> users = userDao.selectByExample(null);
-
+        int geshu = users.size();
         return users;
     }
 
@@ -132,6 +134,38 @@ public class UserServiceImpl implements UserService {
         Page<User> usersList = (Page<User>)userDao.selectByExample(query);
         return new PageResult(usersList.getTotal(), usersList.getResult());
     }
+
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        for (Long id : ids) {
+            User user = new User();
+            user.setId(id);
+            user.setStatus(status);
+            //修改数据库状态
+            userDao.updateByPrimaryKeySelective(user);
+        }
+    }
+
+    @Override
+    public User findStatusByUserName(String username) {
+        UserQuery query = new UserQuery();
+        UserQuery.Criteria criteria = query.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        User user = (User) userDao.selectByExample(query);
+
+        return user;
+    }
+
+    @Override
+    public int getActiveUserCount() {
+        return 0;
+    }
+
+    @Override
+    public String ajaxUploadExcel(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
+
 
     public static void main(String[] args) {
         long s = (long)(Math.random() * 1000000);

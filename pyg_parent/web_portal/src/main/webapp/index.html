@@ -23,7 +23,7 @@
    
 </head>
 
-<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1);findItemCatList()">
+<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1);findItemCatList();findByCategoryId(6);findByCategoryId(7)">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 <div id="nav-bottom">
@@ -876,7 +876,7 @@
 							<a href="#tab1" data-toggle="tab">热门</a>
 						</li>
 						<li>
-							<a href="#tab2" data-toggle="tab">大家电</a>
+							<a ng-click="findByCategoryId(8)" href="#tab2" data-toggle="tab" >大家电</a>
 						</li>
 						<li>
 							<a href="#tab3" data-toggle="tab">生活电器</a>
@@ -898,6 +898,7 @@
 			</div>
 			<div class="clearfix  tab-content floor-content">
 				<div id="tab1" class="tab-pane active">
+
 					<div class="yui3-g Floor-1">
 						<div class="yui3-u Left blockgary">
 							<ul class="jd-list">
@@ -908,10 +909,13 @@
 								<li>滚筒洗衣机</li>
 								<li>电热水器</li>
 							</ul>
-							<img src="img/floor-1-1.png" />
+                                <!--<img src="img/floor-1-1.png"/>-->
+                            <a href="{{contentList[6][0].url}}">
+                                <img src="{{contentList[6][0].pic}}"  />
+                            </a>
 						</div>
 						<div class="yui3-u row-330 floorBanner">
-							<div id="floorCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
+							<div id="floorCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide" >
 								<ol class="carousel-indicators">
 									<li data-target="#floorCarousel" data-slide-to="0" class="active"></li>
 									<li data-target="#floorCarousel" data-slide-to="1"></li>
@@ -919,13 +923,22 @@
 								</ol>
 								<div class="carousel-inner">
 									<div class="active item">
-										<img src="img/floor-1-b01.png">
+										<!--<img src="img/floor-1-b01.png">-->
+                                        <a href="{{contentList[6][1].url}}">
+                                            <img src="{{contentList[6][1].pic}}"  />
+                                        </a>
 									</div>
 									<div class="item">
-										<img src="img/floor-1-b02.png">
+										<!--<img src="img/floor-1-b02.png">-->
+                                        <a href="{{contentList[6][2].url}}">
+                                            <img src="{{contentList[6][2].pic}}"  />
+                                        </a>
 									</div>
 									<div class="item">
-										<img src="img/floor-1-b03.png">
+										<!--<img src="img/floor-1-b03.png">-->
+                                        <a href="{{contentList[6][3].url}}">
+                                            <img src="{{contentList[6][3].pic}}"  />
+                                        </a>
 									</div>
 								</div>
 								<a href="#floorCarousel" data-slide="prev" class="carousel-control left">‹</a>
@@ -935,28 +948,129 @@
 						<div class="yui3-u row-220 split">
 							<span class="floor-x-line"></span>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-2.png" />
+								<!--<img src="img/floor-1-2.png" />-->
+                                <a href="{{contentList[6][4].url}}">
+                                    <img src="{{contentList[6][4].pic}}"  />
+                                </a>
 							</div>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-3.png" />
+								<!--<img src="img/floor-1-3.png" />-->
+                                <a href="{{contentList[6][5].url}}">
+                                    <img src="{{contentList[6][5].pic}}"  />
+                                </a>
 							</div>
 						</div>
 						<div class="yui3-u row-218 split">
-							<img src="img/floor-1-4.png" />
+							<!--<img src="img/floor-1-4.png" />-->
+                            <a href="{{contentList[6][6].url}}">
+                                <img src="{{contentList[6][6].pic}}"  />
+                            </a>
 						</div>
 						<div class="yui3-u row-220 split">
 							<span class="floor-x-line"></span>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-5.png" />
+								<!--<img src="img/floor-1-5.png" />-->
+                                <a href="{{contentList[6][7].url}}">
+                                    <img src="{{contentList[6][7].pic}}"  />
+                                </a>
 							</div>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-6.png" />
+								<!--<img src="img/floor-1-6.png" />-->
+                                <a href="{{contentList[6][8].url}}">
+                                    <img src="{{contentList[6][8].pic}}"  />
+                                </a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div id="tab2" class="tab-pane">
-					<p>第二个</p>
+				<div id="tab2" class="tab-pane" >
+                    <!--<p>第二个</p>-->
+
+                    <div class="yui3-g Floor-1">
+                        <div class="yui3-u Left blockgary">
+                            <ul class="jd-list">
+                                <li>节能补贴</li>
+                                <li>4K电视</li>
+                                <li>空气净化器</li>
+                                <li>IH电饭煲</li>
+                                <li>滚筒洗衣机</li>
+                                <li>电热水器</li>
+                            </ul>
+                            <!--<img src="img/floor-1-1.png" />-->
+                            <a href="{{contentList[8][0].url}}">
+                                <img src="{{contentList[8][0].pic}}"  />
+                            </a>
+                        </div>
+                        <div class="yui3-u row-330 floorBanner">
+                            <div id="floorCarouse2" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#floorCarouse2" data-slide-to="0" class="active"></li>
+                                    <li data-target="#floorCarouse2" data-slide-to="1"></li>
+                                    <li data-target="#floorCarouse2" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="active item">
+                                        <!--<img src="img/floor-1-b01.png">-->
+                                        <a href="{{contentList[8][1].url}}">
+                                            <img src="{{contentList[8][1].pic}}"  />
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <!--<img src="img/floor-1-b02.png">-->
+                                        <a href="{{contentList[8][2].url}}">
+                                            <img src="{{contentList[8][2].pic}}"  />
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <!--<img src="img/floor-1-b03.png">-->
+                                        <a href="{{contentList[8][3].url}}">
+                                            <img src="{{contentList[8][3].pic}}"  />
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="#floorCarouse2" data-slide="prev" class="carousel-control left">‹</a>
+                                <a href="#floorCarouse2" data-slide="next" class="carousel-control right">›</a>
+                            </div>
+                        </div>
+                        <div class="yui3-u row-220 split">
+                            <span class="floor-x-line"></span>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-2.png" />-->
+                                <a href="{{contentList[8][4].url}}">
+                                    <img src="{{contentList[8][4].pic}}" width="219" height="180" />
+                                </a>
+                            </div>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-3.png" />-->
+                                <a href="{{contentList[8][5].url}}">
+                                    <img src="{{contentList[8][5].pic}}"  width="219" height="180"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="yui3-u row-218 split">
+                            <!--<img src="img/floor-1-4.png" />-->
+                            <a href="{{contentList[8][6].url}}">
+                                <img src="{{contentList[8][6].pic}}"  />
+                            </a>
+                        </div>
+                        <div class="yui3-u row-220 split">
+                            <span class="floor-x-line"></span>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-5.png" />-->
+                                <a href="{{contentList[8][7].url}}">
+                                    <img src="{{contentList[8][7].pic}}"  width="219" height="180"/>
+                                </a>
+                            </div>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-6.png" />-->
+                                <a href="{{contentList[8][8].url}}">
+                                    <img src="{{contentList[8][8].pic}}"  width="219" height="180"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
 				</div>
 				<div id="tab3" class="tab-pane">
 					<p>第三个</p>
@@ -986,7 +1100,7 @@
 							<a href="#tab8" data-toggle="tab">热门</a>
 						</li>
 						<li>
-							<a href="#tab9" data-toggle="tab">品质优选</a>
+							<a ng-click="findByCategoryId(9)" href="#tab9" data-toggle="tab">品质优选</a>
 						</li>
 						<li>
 							<a href="#tab10" data-toggle="tab">新机尝鲜</a>
@@ -1003,6 +1117,9 @@
 						<li>
 							<a href="#tab14" data-toggle="tab">手机配件</a>
 						</li>
+                        <li>
+                            <a href="#tab15" data-toggle="tab">手机</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -1018,49 +1135,76 @@
 								<li>滚筒洗衣机</li>
 								<li>电热水器</li>
 							</ul>
-							<img src="img/floor-1-1.png" />
+							<!--<img src="img/floor-1-1.png" />-->
+                            <a href="{{contentList[7][0].url}}">
+                                <img src="{{contentList[7][0].pic}}"  />
+                            </a>
 						</div>
 						<div class="yui3-u row-330 floorBanner">
-							<div id="floorCarousell" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
+							<div id="floorCarouse3" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
 								<ol class="carousel-indicators">
-									<li data-target="#floorCarousell" data-slide-to="0" class="active"></li>
-									<li data-target="#floorCarousell" data-slide-to="1"></li>
-									<li data-target="#floorCarousell" data-slide-to="2"></li>
+									<li data-target="#floorCarouse3" data-slide-to="0" class="active"></li>
+									<li data-target="#floorCarouse3" data-slide-to="1"></li>
+									<li data-target="#floorCarouse3" data-slide-to="2"></li>
 								</ol>
 								<div class="carousel-inner">
 									<div class="active item">
-										<img src="img/floor-1-b01.png">
+										<!--<img src="img/floor-1-b01.png">-->
+                                        <a href="{{contentList[7][1].url}}">
+                                            <img src="{{contentList[7][1].pic}}"  />
+                                        </a>
 									</div>
 									<div class="item">
-										<img src="img/floor-1-b02.png">
+										<!--<img src="img/floor-1-b02.png">-->
+                                        <a href="{{contentList[7][2].url}}">
+                                            <img src="{{contentList[7][2].pic}}"  />
+                                        </a>
 									</div>
 									<div class="item">
-										<img src="img/floor-1-b03.png">
+										<!--<img src="img/floor-1-b03.png">-->
+                                        <a href="{{contentList[7][3].url}}">
+                                            <img src="{{contentList[7][3].pic}}"  />
+                                        </a>
 									</div>
 								</div>
-								<a href="#floorCarousell" data-slide="prev" class="carousel-control left">‹</a>
-								<a href="#floorCarousell" data-slide="next" class="carousel-control right">›</a>
+								<a href="#floorCarouse3" data-slide="prev" class="carousel-control left">‹</a>
+								<a href="#floorCarouse3" data-slide="next" class="carousel-control right">›</a>
 							</div>
 						</div>
 						<div class="yui3-u row-220 split">
 							<span class="floor-x-line"></span>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-2.png" />
+								<!--<img src="img/floor-1-2.png" />-->
+                                <a href="{{contentList[7][4].url}}">
+                                    <img src="{{contentList[7][4].pic}}" width="219" height="180" />
+                                </a>
 							</div>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-3.png" />
+								<!--<img src="img/floor-1-3.png" />-->
+                                <a href="{{contentList[7][5].url}}">
+                                    <img src="{{contentList[7][5].pic}}"  width="219" height="180"/>
+                                </a>
 							</div>
 						</div>
 						<div class="yui3-u row-218 split">
-							<img src="img/floor-1-4.png" />
+							<!--<img src="img/floor-1-4.png" />-->
+                            <a href="{{contentList[7][6].url}}">
+                                <img src="{{contentList[7][6].pic}}"  />
+                            </a>
 						</div>
 						<div class="yui3-u row-220 split">
 							<span class="floor-x-line"></span>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-5.png" />
+								<!--<img src="img/floor-1-5.png" />-->
+                                <a href="{{contentList[7][7].url}}">
+                                    <img src="{{contentList[7][7].pic}}"  width="219" height="180"/>
+                                </a>
 							</div>
 							<div class="floor-conver-pit">
-								<img src="img/floor-1-6.png" />
+								<!--<img src="img/floor-1-6.png" />-->
+                                <a href="{{contentList[7][8].url}}">
+                                    <img src="{{contentList[7][8].pic}}"  width="219" height="180"/>
+                                </a>
 							</div>
 						</div>
 					</div>
@@ -1069,7 +1213,97 @@
 					<p>第二个</p>
 				</div>
 				<div id="tab9" class="tab-pane">
-					<p>第三个</p>
+					<!--<p>第二个</p>-->
+
+
+                    <div class="yui3-g Floor-1">
+                        <div class="yui3-u Left blockgary">
+                            <ul class="jd-list">
+                                <li>节能补贴</li>
+                                <li>4K电视</li>
+                                <li>空气净化器</li>
+                                <li>IH电饭煲</li>
+                                <li>滚筒洗衣机</li>
+                                <li>电热水器</li>
+                            </ul>
+                            <!--<img src="img/floor-1-1.png" />-->
+                            <a href="{{contentList[7][0].url}}">
+                                <img src="{{contentList[7][0].pic}}"  />
+                            </a>
+                        </div>
+                        <div class="yui3-u row-330 floorBanner">
+                            <div id="floorCarouse4" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#floorCarouse4" data-slide-to="0" class="active"></li>
+                                    <li data-target="#floorCarouse4" data-slide-to="1"></li>
+                                    <li data-target="#floorCarouse4" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="active item">
+                                        <!--<img src="img/floor-1-b01.png">-->
+                                        <a href="{{contentList[9][1].url}}">
+                                            <img src="{{contentList[9][1].pic}}"  />
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <!--<img src="img/floor-1-b02.png">-->
+                                        <a href="{{contentList[9][2].url}}">
+                                            <img src="{{contentList[9][2].pic}}"  />
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <!--<img src="img/floor-1-b03.png">-->
+                                        <a href="{{contentList[9][3].url}}">
+                                            <img src="{{contentList[9][3].pic}}"  />
+                                        </a>
+                                    </div>
+                                </div>
+                                <a href="#floorCarouse4" data-slide="prev" class="carousel-control left">‹</a>
+                                <a href="#floorCarouse4" data-slide="next" class="carousel-control right">›</a>
+                            </div>
+                        </div>
+                        <div class="yui3-u row-220 split">
+                            <span class="floor-x-line"></span>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-2.png" />-->
+                                <a href="{{contentList[9][4].url}}">
+                                    <img src="{{contentList[9][4].pic}}" width="219" height="180" />
+                                </a>
+                            </div>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-3.png" />-->
+                                <a href="{{contentList[9][5].url}}">
+                                    <img src="{{contentList[9][5].pic}}"  width="219" height="180"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="yui3-u row-218 split">
+                            <!--<img src="img/floor-1-4.png" />-->
+                            <a href="{{contentList[9][6].url}}">
+                                <img src="{{contentList[9][6].pic}}"  />
+                            </a>
+                        </div>
+                        <div class="yui3-u row-220 split">
+                            <span class="floor-x-line"></span>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-5.png" />-->
+                                <a href="{{contentList[9][7].url}}">
+                                    <img src="{{contentList[9][7].pic}}"  width="219" height="180"/>
+                                </a>
+                            </div>
+                            <div class="floor-conver-pit">
+                                <!--<img src="img/floor-1-6.png" />-->
+                                <a href="{{contentList[9][8].url}}">
+                                    <img src="{{contentList[9][8].pic}}"  width="219" height="180"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
 				</div>
 				<div id="tab10" class="tab-pane">
 					<p>第4个</p>

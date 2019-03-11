@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +54,7 @@ public class PayController {
      * @return
      */
     @RequestMapping("/queryPayStatus")
-    public Result queryPayStatus(String out_trade_no) throws Exception {
+    public Result queryPayStatus(String out_trade_no, HttpServletResponse response, HttpServletRequest request) throws Exception {
         Result result = null;
 
         Integer flag = 1;
@@ -86,5 +88,17 @@ public class PayController {
             }
         }
         return result;
+    }
+
+    /**
+     * 超时关闭订单
+     */
+
+
+    public void closeorder(String out_trade_no) throws Exception {
+
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        PayLog payLog = payService.findPageLogFromRedis(userName);
+        payService.closeorder(payLog.getOutTradeNo());
     }
 }
